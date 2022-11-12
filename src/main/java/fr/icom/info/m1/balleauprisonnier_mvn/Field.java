@@ -24,8 +24,8 @@ import javafx.scene.paint.Color;
 public class Field extends Canvas {
 
 	/** Joueurs */
-	Player [] team1 = new Player[3];
-	Player [] team2 = new Player[3];
+	Player [] team1 = new Player[5];
+	Player [] team2 = new Player[5];
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
 	/** Tableau traçant les evenements */
@@ -58,21 +58,33 @@ public class Field extends Canvas {
 		team1[0] = new Player(gc, colorMap[0], w/2, h-50, "bottom");
 		team1[0].display();
 
-		team1[1] = new IA(gc, colorMap[0], w/4, h-50, "bottom");
+		team1[1] = new IA(gc, colorMap[0], 1*(w/5)-50, h-50, "bottom");
 		team1[1].display();
 
-		team1[2] = new IA(gc, colorMap[0], w/3, h-50, "bottom");
+		team1[2] = new IA(gc, colorMap[0], 2*(w/5)-50, h-50, "bottom");
 		team1[2].display();
+
+		team1[3] = new IA(gc, colorMap[0], 3*(w/5)+50, h-50, "bottom");
+		team1[3].display();
+
+		team1[4] = new IA(gc, colorMap[0], 4*(w/5)+50, h-50, "bottom");
+		team1[4].display();
+
 
 		team2[0] = new Player(gc, colorMap[1], w/2, 20, "top");
 		team2[0].display();
 
-		team2[1] = new IA(gc, colorMap[1], w/4, 20, "top");
+		team2[1] = new IA(gc, colorMap[1], 1*(w/5)-50, 20, "top");
 		team2[1].display();
 
-		team2[2] = new IA(gc, colorMap[1], w/3, 20, "top");
+		team2[2] = new IA(gc, colorMap[1], 2*(w/5)-50, 20, "top");
 		team2[2].display();
 
+		team2[3] = new IA(gc, colorMap[1], 3*(w/5)+50, 20, "top");
+		team2[3].display();
+
+		team2[4] = new IA(gc, colorMap[1], 4*(w/5)+50, 20, "top");
+		team2[4].display();
 
 		/**
 		 * Event Listener du clavier
@@ -172,6 +184,13 @@ public class Field extends Canvas {
 				}
 
 				team2[0].display();
+
+
+				for (int i=1;i<5;i++) {
+					team1[i].deplacementBot(i * (w / 5), (i+1) * (w / 5), 5);
+					team2[i].deplacementBot(i * (w / 5), (i+1) * (w / 5), 5);
+				}
+
 
 			}
 		}.start(); // On lance la boucle de rafraichissement

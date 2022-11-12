@@ -21,6 +21,7 @@ public class IA extends Player {
         sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
         sprite.setX(x);
         sprite.setY(y);
+
     }
 
 }

@@ -168,5 +168,13 @@ public class Player
 		sprite.setX(x);
 		sprite.setY(y);
 	}
-
+	void deplacementBot(int w5g,int w5d,int stepBot){
+		if (this.x > w5d){
+			stepBot = -stepBot;
+		} else if (this.x < w5g) {
+			stepBot = -stepBot;
+		}
+		spriteAnimate();
+		this.x += stepBot;
+	}
 }
