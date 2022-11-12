@@ -58,19 +58,19 @@ public class Field extends Canvas {
 		team1[0] = new Player(gc, colorMap[0], w/2, h-50, "bottom");
 		team1[0].display();
 
-		team1[1] = new IA(gc, colorMap[0], w/2, h-50, "bottom");
+		team1[1] = new IA(gc, colorMap[0], w/4, h-50, "bottom");
 		team1[1].display();
 
-		team1[2] = new IA(gc, colorMap[0], w/2, h-50, "bottom");
+		team1[2] = new IA(gc, colorMap[0], w/3, h-50, "bottom");
 		team1[2].display();
 
 		team2[0] = new Player(gc, colorMap[1], w/2, 20, "top");
 		team2[0].display();
 
-		team2[1] = new IA(gc, colorMap[1], w/2, 20, "top");
+		team2[1] = new IA(gc, colorMap[1], w/4, 20, "top");
 		team2[1].display();
 
-		team2[2] = new IA(gc, colorMap[1], w/2, 20, "top");
+		team2[2] = new IA(gc, colorMap[1], w/3, 20, "top");
 		team2[2].display();
 
 
