@@ -6,8 +6,8 @@ import javafx.util.Duration;
 
 public class IA extends Player {
 
-    IA(GraphicsContext gc, String color, int xInit, int yInit, String side) {
-        super(gc, color, xInit, yInit, side);
+    IA(GraphicsContext gc, String color, int xInit, int yInit, String side, int etat) {
+        super(gc, color, xInit, yInit, side, etat);
         // TODO Auto-generated constructor stub
 
         Image tilesheetImage;
