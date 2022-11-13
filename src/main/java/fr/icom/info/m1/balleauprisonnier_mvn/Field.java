@@ -185,15 +185,15 @@ public class Field extends Canvas {
 
 				team2[0].display();
 
-
+				int feinte = 0;
 				for (int i=1;i<3;i++) {
-					team1[i].deplacementBot((i-1) * (w / 5), i * (w / 5), 3, 0);
-					team2[i].deplacementBot((i-1) * (w / 5), i * (w / 5), 3, 0);
+					team1[i].deplacementBot((i-1) * (w / 5), i * (w / 5), 3, feinte);
+					team2[i].deplacementBot((i-1) * (w / 5), i * (w / 5), 3, feinte);
 				}
 
 				for (int i=3;i<5;i++) {
-					team1[i].deplacementBot(i * (w / 5), (i+1) * (w / 5), 3, 0);
-					team2[i].deplacementBot(i * (w / 5), (i+1) * (w / 5), 3, 0);
+					team1[i].deplacementBot(i * (w / 5), (i+1) * (w / 5), 3, feinte);
+					team2[i].deplacementBot(i * (w / 5), (i+1) * (w / 5), 3, feinte);
 				}
 
 
