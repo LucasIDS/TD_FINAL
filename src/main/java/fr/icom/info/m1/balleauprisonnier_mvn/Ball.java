@@ -21,7 +21,7 @@ public class Ball  extends ImageView{
         this.velocityY = pVelocityY;
         this.setY(pPositionY);
         this.setX(pPositionX);
-        img = new Image("assets/ball.png",20,20,true,false);
+        img = new Image("assets/ball.png",30,30,true,false);
 
     }
 

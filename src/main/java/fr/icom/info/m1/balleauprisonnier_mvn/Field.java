@@ -190,7 +190,7 @@ public class Field extends Canvas {
 
 				team2[0].display();
 
-				int feinte = 50;
+				int feinte = 10;
 				for (int i=1;i<3;i++) {
 					team1[i].deplacement((i-1) * (w / 5), i * (w / 5),  feinte);
 					team2[i].deplacement((i-1) * (w / 5), i * (w / 5),  feinte);

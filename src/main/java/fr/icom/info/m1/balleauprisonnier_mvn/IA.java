@@ -36,7 +36,7 @@ public class IA extends Player {
         }
 
         //Gestion de la feinte
-        if (feinte != 0) {
+        if (feinte != 0 && this.x < w5d && this.x > w5g)  {
             Random randomGenerator = new Random();
             feinteMax = randomGenerator.nextInt(feinte);
             if (feinteMax==2){
