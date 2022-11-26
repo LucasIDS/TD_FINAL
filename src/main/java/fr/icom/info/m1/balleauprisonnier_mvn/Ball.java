@@ -32,15 +32,8 @@ public class Ball  extends ImageView{
 
         this.graphicsContext = gc;
 
-        this.imgBall = new Image("assets/ball.png");
-        this.ivBall = new ImageView();
-        this.ivBall.setImage(imgBall);
-        this.ivBall.setFitWidth(1);
-        this.ivBall.setPreserveRatio(true);
-        this.ivBall.setSmooth(true);
-        this.ivBall.setCache(true);
-
-
+        this.imgBall = new Image("assets/ball.png",25,25,true,false);
+        this.ivBall = new ImageView(imgBall);
     }
 
     void display()
@@ -52,8 +45,9 @@ public class Ball  extends ImageView{
 
     void deplacementBall()
     {
-        this.x +=  velocityX ;
-        this.y +=  velocityY;
+        this.x +=  3*velocityX ;
+        this.y +=  3*velocityY;
+
     }
 
     void setY(int y){
@@ -79,4 +73,8 @@ public class Ball  extends ImageView{
     public void bounceY(){
         this.velocityY = -this.velocityY;
     }
+
 }
+
+
+

@@ -63,19 +63,19 @@ public class Field extends Canvas {
 
 
 		/* On initialise le terrain de jeu */
-		team1[0] = new Player(gc, colorMap[0], w/2, h-50, "bottom",myBall);
+		team1[0] = new Player(gc, colorMap[0], w/2, h-100, "bottom",myBall);
 		team1[0].display();
 
-		team1[1] = new IA(gc, colorMap[0], 1*(w/10), h-50, "bottom",null);
+		team1[1] = new IA(gc, colorMap[0], 1*(w/10), h-100, "bottom",null);
 		team1[1].display();
 
-		team1[2] = new IA(gc, colorMap[0], 3*(w/10), h-50, "bottom",null);
+		team1[2] = new IA(gc, colorMap[0], 3*(w/10), h-100, "bottom",null);
 		team1[2].display();
 
-		team1[3] = new IA(gc, colorMap[0], 7*(w/10), h-50, "bottom",null);
+		team1[3] = new IA(gc, colorMap[0], 7*(w/10), h-100, "bottom",null);
 		team1[3].display();
 
-		team1[4] = new IA(gc, colorMap[0], 9*(w/10), h-50, "bottom",null);
+		team1[4] = new IA(gc, colorMap[0], 9*(w/10), h-100, "bottom",null);
 		team1[4].display();
 
 
@@ -195,22 +195,22 @@ public class Field extends Canvas {
 
 				team2[0].display();
 
-				int feinte = 10;
+				int feinte = 0;
 				for (int i=1;i<3;i++) {
-					team1[i].deplacement((i-1) * (w / 5), i * (w / 5),  feinte);
-					team2[i].deplacement((i-1) * (w / 5), i * (w / 5),  feinte);
+					team1[i].deplacement((i-1) * (w / 5)-10, i * (w / 5)-40,  feinte);
+					team2[i].deplacement((i-1) * (w / 5)-10, i * (w / 5)-40,  feinte);
 				}
 
 				for (int i=3;i<5;i++) {
-					team1[i].deplacement(i * (w / 5), (i+1) * (w / 5), feinte);
-					team2[i].deplacement(i * (w / 5), (i+1) * (w / 5), feinte);
+					team1[i].deplacement(i * (w / 5)-10, (i+1) * (w / 5)-40, feinte);
+					team2[i].deplacement(i * (w / 5)-10, (i+1) * (w / 5)-40, feinte);
 				}
 
-				System.out.println(myBall.x);
-				System.out.println(myBall.y);
 				myBall.deplacementBall();
 				myBall.display();
-
+				if (myBall.x>=w-40 || myBall.x <= 0){
+					myBall.bounceX();
+				}
 
 			}
 		}.start(); // On lance la boucle de rafraichissement

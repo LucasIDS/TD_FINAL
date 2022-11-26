@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.sql.SQLOutput;
 import java.util.Random;
 
 
@@ -26,7 +27,7 @@ public class Player
 
 	double feinteMax;
 	String playerColor;
-
+	String side;
 	// On une image globale du joueur
 	Image directionArrow;
 
@@ -48,7 +49,7 @@ public class Player
 		// Tous les joueurs commencent au centre du canvas,
 		x = xInit;
 		y = yInit;
-
+		this.side = side;
 		graphicsContext = gc;
 		playerColor=color;
 
@@ -84,8 +85,14 @@ public class Player
 
 		myBall = ball;
 		if(myBall != null){
-			myBall.x = xInit;
-			myBall.y = yInit;
+			if (this.side=="bottom"){
+				myBall.x = xInit+30;
+				myBall.y = yInit-10;
+			}
+			else if (this.side=="top"){
+				myBall.x = xInit+30;
+				myBall.y = yInit-10;
+			}
 		}
 
 
@@ -117,6 +124,9 @@ public class Player
 		{
 			spriteAnimate();
 			x -= step;
+			if (this.myBall != null){
+				this.myBall.x -= step;
+			}
 		}
 	}
 
@@ -129,6 +139,9 @@ public class Player
 		{
 			spriteAnimate();
 			x += step;
+			if (this.myBall != null){
+			this.myBall.x += step;
+			}
 		}
 	}
 
@@ -138,14 +151,10 @@ public class Player
 	 */
 	void turnLeft()
 	{
-		if (angle > 0 && angle < 180)
+		if (angle <= 60)
 		{
 			angle += 1;
 		}
-		else {
-			angle += 1;
-		}
-
 	}
 
 
@@ -154,21 +163,21 @@ public class Player
 	 */
 	void turnRight()
 	{
-		if (angle > 0 && angle < 180)
+		if (angle >= -70 )
 		{
 			angle -=1;
-		}
-		else {
-			angle -= 1;
 		}
 	}
 
 
 	void shoot(){
 		sprite.playShoot();
-		if (myBall != null){
-			this.myBall.setVelocityY(-1);
-			this.myBall.setVelocityX(this.angle);
+		if (myBall != null && this.side=="bottom"){
+			this.myBall.setVelocityY(-Math.sin(Math.toRadians(90-this.angle)));
+			this.myBall.setVelocityX(+Math.cos(Math.toRadians(90-this.angle)));
+		}else if (myBall != null && this.side=="top"){
+			this.myBall.setVelocityY(+Math.sin(Math.toRadians(90-this.angle)));
+			this.myBall.setVelocityX(-Math.cos(Math.toRadians(90-this.angle)));
 		}
 		this.myBall = null;
 	}
