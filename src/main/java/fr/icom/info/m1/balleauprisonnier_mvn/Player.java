@@ -47,23 +47,18 @@ public class Player
 		x = xInit;
 		y = yInit;
 
-		this.vitesse = 1;
-		this.step = 3;
-
 		graphicsContext = gc;
 		playerColor=color;
 
-
 		angle = 0;
 
-		// On charge la representation du joueur
+		// Image fleche
 		if(side=="top"){
 			directionArrow = new Image("assets/PlayerArrowDown.png");
 		}
 		else{
 			directionArrow = new Image("assets/PlayerArrowUp.png");
 		}
-
 		PlayerDirectionArrow = new ImageView();
 		PlayerDirectionArrow.setImage(directionArrow);
 		PlayerDirectionArrow.setFitWidth(10);
@@ -71,17 +66,19 @@ public class Player
 		PlayerDirectionArrow.setSmooth(true);
 		PlayerDirectionArrow.setCache(true);
 
+		//Image du joueur
 		Image tilesheetImage = new Image("assets/orc.png");
 		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
 		sprite.setX(x);
 		sprite.setY(y);
+
 		//directionArrow = sprite.getClip().;
 
 		// Tous les joueurs ont une vitesse aleatoire entre 0.0 et 1.0
 		// Random randomGenerator = new Random();
 		//step = randomGenerator.nextFloat();
-
-		step = 3;
+		this.vitesse = 1;
+		this.step = 3;
 
 	}
 

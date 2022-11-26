@@ -13,6 +13,7 @@ public class IA extends Player {
         super(gc, color, xInit, yInit, side);
 
         Image tilesheetImage;
+
         if(Objects.equals(side, "top")){
            tilesheetImage = new Image("assets/PlayerBlue.png");
         }
@@ -27,10 +28,6 @@ public class IA extends Player {
     }
 
     private void changementDirectionBot(int w5g,int w5d, int feinte){
-
-
-
-
         if (this.x > w5d || this.x < w5g){
             this.vitesse = -this.vitesse;
         }
@@ -43,8 +40,6 @@ public class IA extends Player {
                 this.vitesse = -this.vitesse;
             }
         }
-
-
     }
 
     void deplacement(int w5g,int w5d, int feinte){
