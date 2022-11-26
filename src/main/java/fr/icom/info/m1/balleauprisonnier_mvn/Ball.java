@@ -7,30 +7,68 @@ import javafx.scene.image.ImageView;
 public class Ball  extends ImageView{
 
     Sprite sprite;
-    int velocityX;
-    int velocityY;
 
-    ImageView iv;
 
-    Image img;
+    double angle;
+    double x;
+    double y;
+
+   private double velocityX;
+
+   private  double velocityY;
+
+    ImageView ivBall;
+
+    Image imgBall;
 
     GraphicsContext graphicsContext;
 
-    public Ball(GraphicsContext gc ,int pPositionX, int pPositionY, int pVelocityX,  int pVelocityY) {
+    public Ball(GraphicsContext gc ,double pPositionX, double pPositionY, double pVelocityX,  double pVelocityY) {
+        this.x = pPositionX;
+        this.y = pPositionY;
+
         this.velocityX = pVelocityX;
         this.velocityY = pVelocityY;
-        this.setY(pPositionY);
-        this.setX(pPositionX);
-        img = new Image("assets/ball.png",30,30,true,false);
+
+        this.graphicsContext = gc;
+
+        this.imgBall = new Image("assets/ball.png");
+        this.ivBall = new ImageView();
+        this.ivBall.setImage(imgBall);
+        this.ivBall.setFitWidth(1);
+        this.ivBall.setPreserveRatio(true);
+        this.ivBall.setSmooth(true);
+        this.ivBall.setCache(true);
+
 
     }
 
-
-    ImageView getImageView()
+    void display()
     {
-        ImageView iv = new ImageView();
-        iv.setImage(img);
-        return iv;
+        this.graphicsContext.save(); // saves the current state on stack, including the current transform
+        this.graphicsContext.drawImage(imgBall, this.x, this.y);
+    }
+
+
+    void deplacementBall()
+    {
+        this.x +=  velocityX ;
+        this.y +=  velocityY;
+    }
+
+    void setY(int y){
+        this.y = y;
+    }
+    void setX(int x){
+        this.x = x;
+    }
+
+    void setVelocityY(double pVelocityY){
+        this.velocityY = pVelocityY;
+    }
+
+    void setVelocityX(double pVelocityX){
+        this.velocityX = pVelocityX;
     }
 
 

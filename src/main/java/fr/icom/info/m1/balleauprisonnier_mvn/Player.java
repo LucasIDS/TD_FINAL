@@ -29,6 +29,8 @@ public class Player
 
 	// On une image globale du joueur
 	Image directionArrow;
+
+	Ball myBall;
 	Sprite sprite;
 	ImageView PlayerDirectionArrow;
 
@@ -41,7 +43,7 @@ public class Player
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
-	Player(GraphicsContext gc, String color, int xInit, int yInit, String side)
+	Player(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball ball)
 	{
 		// Tous les joueurs commencent au centre du canvas,
 		x = xInit;
@@ -79,6 +81,13 @@ public class Player
 		//step = randomGenerator.nextFloat();
 		this.vitesse = 1;
 		this.step = 3;
+
+		myBall = ball;
+		if(myBall != null){
+			myBall.x = xInit;
+			myBall.y = yInit;
+		}
+
 
 	}
 
@@ -157,6 +166,11 @@ public class Player
 
 	void shoot(){
 		sprite.playShoot();
+		if (myBall != null){
+			this.myBall.setVelocityY(-1);
+			this.myBall.setVelocityX(this.angle);
+		}
+		this.myBall = null;
 	}
 
 	/**
@@ -175,8 +189,6 @@ public class Player
 		sprite.setY(y);
 	}
 
-	void deplacement(int w5g,int w5d, int feinte){
-		this.x = this.x;
-	}
+	void deplacement(int w5g,int w5d, int feinte){}
 
 }

@@ -43,7 +43,6 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2)[3].sprite);
 		root.getChildren().add(gameField.getJoueurs(1)[4].sprite);
 		root.getChildren().add(gameField.getJoueurs(2)[4].sprite);
-		root.getChildren().add(gameField.getBall().getImageView());
 
 
 		// On ajoute la scene a la fenêtre et on affiche

@@ -54,42 +54,47 @@ public class Field extends Canvas {
 
 		gc = this.getGraphicsContext2D();
 
+
+
+
+
 		/* On crée la balle */
-
-
+		Ball myBall = new Ball(gc,0,0,0,0);
 
 
 		/* On initialise le terrain de jeu */
-		team1[0] = new Player(gc, colorMap[0], w/2, h-50, "bottom");
+		team1[0] = new Player(gc, colorMap[0], w/2, h-50, "bottom",myBall);
 		team1[0].display();
 
-		team1[1] = new IA(gc, colorMap[0], 1*(w/10), h-50, "bottom");
+		team1[1] = new IA(gc, colorMap[0], 1*(w/10), h-50, "bottom",null);
 		team1[1].display();
 
-		team1[2] = new IA(gc, colorMap[0], 3*(w/10), h-50, "bottom");
+		team1[2] = new IA(gc, colorMap[0], 3*(w/10), h-50, "bottom",null);
 		team1[2].display();
 
-		team1[3] = new IA(gc, colorMap[0], 7*(w/10), h-50, "bottom");
+		team1[3] = new IA(gc, colorMap[0], 7*(w/10), h-50, "bottom",null);
 		team1[3].display();
 
-		team1[4] = new IA(gc, colorMap[0], 9*(w/10), h-50, "bottom");
+		team1[4] = new IA(gc, colorMap[0], 9*(w/10), h-50, "bottom",null);
 		team1[4].display();
 
 
-		team2[0] = new Player(gc, colorMap[1], w/2, 20, "top");
+		team2[0] = new Player(gc, colorMap[1], w/2, 20, "top",null);
 		team2[0].display();
 
-		team2[1] = new IA(gc, colorMap[1], 1*(w/10), 20, "top");
+		team2[1] = new IA(gc, colorMap[1], 1*(w/10), 20, "top",null);
 		team2[1].display();
 
-		team2[2] = new IA(gc, colorMap[1], 3*(w/10), 20, "top");
+		team2[2] = new IA(gc, colorMap[1], 3*(w/10), 20, "top",null);
 		team2[2].display();
 
-		team2[3] = new IA(gc, colorMap[1], 7*(w/10), 20, "top");
+		team2[3] = new IA(gc, colorMap[1], 7*(w/10), 20, "top",null);
 		team2[3].display();
 
-		team2[4] = new IA(gc, colorMap[1], 9*(w/10), 20, "top");
+		team2[4] = new IA(gc, colorMap[1], 9*(w/10), 20, "top",null);
 		team2[4].display();
+
+
 
 		/**
 		 * Event Listener du clavier
@@ -201,6 +206,11 @@ public class Field extends Canvas {
 					team2[i].deplacement(i * (w / 5), (i+1) * (w / 5), feinte);
 				}
 
+				System.out.println(myBall.x);
+				System.out.println(myBall.y);
+				myBall.deplacementBall();
+				myBall.display();
+
 
 			}
 		}.start(); // On lance la boucle de rafraichissement
@@ -221,7 +231,4 @@ public class Field extends Canvas {
 		}
 	}
 
-	public Ball getBall() {
-		return new Ball(gc,30,30,2,2);
-	}
 }

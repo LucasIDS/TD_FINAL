@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class IA extends Player {
 
-    IA(GraphicsContext gc, String color, int xInit, int yInit, String side) {
-        super(gc, color, xInit, yInit, side);
+    IA(GraphicsContext gc, String color, int xInit, int yInit, String side, Ball myBall) {
+        super(gc, color, xInit, yInit, side, myBall);
 
         Image tilesheetImage;
 
