@@ -22,9 +22,9 @@ public class IA extends Player {
         }
 
         sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
-        sprite.setX(x);
-        sprite.setY(y);
-
+        sprite.setX(getX());
+        sprite.setY(getY());
+        this.vitesse = 0;
     }
 
     private void changementDirectionBot(int w5g,int w5d, int feinte){

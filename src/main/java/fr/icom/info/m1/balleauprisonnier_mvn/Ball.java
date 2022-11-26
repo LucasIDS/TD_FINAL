@@ -8,7 +8,6 @@ public class Ball  extends ImageView{
 
     Sprite sprite;
 
-
     double angle;
     double x;
     double y;
@@ -65,6 +64,9 @@ public class Ball  extends ImageView{
         this.velocityX = pVelocityX;
     }
 
+    double getVelocityY(){
+        return this.velocityY;
+    };
 
     public void bounceX(){
         this.velocityX = -this.velocityX;

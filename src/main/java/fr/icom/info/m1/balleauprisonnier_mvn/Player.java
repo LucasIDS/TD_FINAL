@@ -18,8 +18,8 @@ import java.util.Random;
  */
 public class Player
 {
-	double x;       // position horizontale du joueur
-	final double y; 	  // position verticale du joueur
+	protected double x;       // position horizontale du joueur
+	protected final double y; 	  // position verticale du joueur
 	double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
 	double step;    // pas d'un joueur
 
@@ -86,7 +86,12 @@ public class Player
 		this.placementBall();
 
 	}
-
+	double getX(){
+		return this.x;
+	}
+	double getY(){
+		return this.y;
+	}
 	/**
 	 *  Affichage du joueur
 	 */

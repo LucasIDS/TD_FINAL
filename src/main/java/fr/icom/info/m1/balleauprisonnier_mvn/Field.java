@@ -208,16 +208,32 @@ public class Field extends Canvas {
 
 				myBall.deplacementBall();
 				myBall.display();
+				// Colision sur les cotés
 				if (myBall.x>=w-40 || myBall.x <= 0){
 					myBall.bounceX();
 				}
+				// Colision en haut
 				if (myBall.y<=0){
 					team2[0].initBall(myBall);
 				}
+				// Colision en bas
 				if (myBall.y>=h){
 					team1[0].initBall(myBall);
 				}
+				// Si zone en bas et balle statique
+				if (myBall.y>=team1[0].y && myBall.y<=team1[0].y +100 && myBall.getVelocityY()!=0){
+					System.out.println("en bas");
+					// A FINIR LUCAS COLISION ENTRE LES JOUEURS
+					double x1 = team1[1].getX();
+					double x2 = team1[1].getX();
+					double x3 = team1[1].getX();
+					double x4 = team1[1].getX();
 
+				}
+				// Si zone en haut et balle statique
+				if (myBall.y>=team2[0].y && myBall.y<=team2[0].y +100 && myBall.getVelocityY()!=0){
+					System.out.println("en haut");
+				}
 			}
 		}.start(); // On lance la boucle de rafraichissement
 
