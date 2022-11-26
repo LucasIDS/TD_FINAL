@@ -82,19 +82,8 @@ public class Player
 		//step = randomGenerator.nextFloat();
 		this.vitesse = 1;
 		this.step = 3;
-
 		myBall = ball;
-		if(myBall != null){
-			if (this.side=="bottom"){
-				myBall.x = xInit+30;
-				myBall.y = yInit-10;
-			}
-			else if (this.side=="top"){
-				myBall.x = xInit+30;
-				myBall.y = yInit-10;
-			}
-		}
-
+		this.placementBall();
 
 	}
 
@@ -182,6 +171,26 @@ public class Player
 		this.myBall = null;
 	}
 
+	void initBall(Ball balle){
+		this.myBall=balle;
+		this.myBall.setVelocityY(0);
+		this.myBall.setVelocityX(0);
+		this.placementBall();
+
+	}
+	private void placementBall(){
+
+		if(myBall != null){
+			if (this.side=="bottom"){
+				myBall.x = this.x+22;
+				myBall.y = this.y-22;
+			}
+			else if (this.side=="top"){
+				myBall.x = this.x+22;
+				myBall.y = this.y+60;
+			}
+		}
+	}
 	/**
 	 *  Deplacement en mode boost
 	 */

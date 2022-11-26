@@ -63,7 +63,7 @@ public class Field extends Canvas {
 
 
 		/* On initialise le terrain de jeu */
-		team1[0] = new Player(gc, colorMap[0], w/2, h-100, "bottom",myBall);
+		team1[0] = new Player(gc, colorMap[0], w/2, h-100, "bottom",null);
 		team1[0].display();
 
 		team1[1] = new IA(gc, colorMap[0], 1*(w/10), h-100, "bottom",null);
@@ -79,7 +79,7 @@ public class Field extends Canvas {
 		team1[4].display();
 
 
-		team2[0] = new Player(gc, colorMap[1], w/2, 20, "top",null);
+		team2[0] = new Player(gc, colorMap[1], w/2, 20, "top",myBall);
 		team2[0].display();
 
 		team2[1] = new IA(gc, colorMap[1], 1*(w/10), 20, "top",null);
@@ -210,6 +210,12 @@ public class Field extends Canvas {
 				myBall.display();
 				if (myBall.x>=w-40 || myBall.x <= 0){
 					myBall.bounceX();
+				}
+				if (myBall.y<=0){
+					team2[0].initBall(myBall);
+				}
+				if (myBall.y>=h){
+					team1[0].initBall(myBall);
 				}
 
 			}
