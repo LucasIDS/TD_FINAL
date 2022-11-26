@@ -21,7 +21,8 @@ public class Player
 	final double y; 	  // position verticale du joueur
 	double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
 	double step;    // pas d'un joueur
-	int etat;
+
+	double vitesse;
 
 	double feinteMax;
 	String playerColor;
@@ -40,14 +41,18 @@ public class Player
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
-	Player(GraphicsContext gc, String color, int xInit, int yInit, String side, int mouvement)
+	Player(GraphicsContext gc, String color, int xInit, int yInit, String side)
 	{
 		// Tous les joueurs commencent au centre du canvas,
 		x = xInit;
 		y = yInit;
+
+		this.vitesse = 1;
+		this.step = 3;
+
 		graphicsContext = gc;
 		playerColor=color;
-		etat = mouvement;
+
 
 		angle = 0;
 
@@ -172,35 +177,9 @@ public class Player
 		sprite.setX(x);
 		sprite.setY(y);
 	}
-	void deplacementBot(int w5g,int w5d,int stepBot, int feinte){
 
-		if (this.x > w5d){
-			etat = 2;
-		}
-		if (this.x < w5g) {
-			etat = 1;
-		}
-		if (feinte != 0) {
-			Random randomGenerator = new Random();
-			feinteMax = randomGenerator.nextInt(feinte);
-		}
-		if (feinteMax==2){
-			if (etat==1){
-				etat=2;
-			}
-			if (etat==2){
-				etat=1;
-			}
-		}
-
-		if (etat == 1){
-			spriteAnimate();
-			this.x += stepBot;
-		}
-		if (etat ==2) {
-			spriteAnimate();
-			this.x -= stepBot;
-		}
-
+	void deplacement(int w5g,int w5d, int feinte){
+		this.x = this.x;
 	}
+
 }

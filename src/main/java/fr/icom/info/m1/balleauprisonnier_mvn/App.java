@@ -4,6 +4,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
@@ -16,22 +17,20 @@ public class App extends Application
 
 	/**
 	 * En javafx start() lance l'application
-	 *
 	 * On cree le SceneGraph de l'application ici
 	 * @see <a href="http://docs.oracle.com/javafx/2/scenegraph/jfxpub-scenegraph.htm">...</a>
 	 *
 	 */
 	@Override
-	public void start(Stage stage) throws Exception
-	{
-		// Nom de la fenetre
+	public void start(Stage stage) {
+		// Nom de la fenêtre
 		stage.setTitle("BalleAuPrisonnier");
 
 		Group root = new Group();
 		Scene scene = new Scene( root );
 
 
-		// On cree le terrain de jeu et on l'ajoute a la racine de la scene
+		// On crée le terrain de jeu et on l'ajoute à la racine de la scene
 		Field gameField = new Field(scene, 600, 600 );
 		root.getChildren().add( gameField );
 		root.getChildren().add(gameField.getJoueurs(1)[0].sprite);
@@ -44,17 +43,16 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2)[3].sprite);
 		root.getChildren().add(gameField.getJoueurs(1)[4].sprite);
 		root.getChildren().add(gameField.getJoueurs(2)[4].sprite);
+		root.getChildren().add(gameField.getBall().getImageView());
 
 
-
-		// On ajoute la scene a la fenetre et on affiche
+		// On ajoute la scene a la fenêtre et on affiche
 		stage.setScene( scene );
 		stage.show();
 	}
 
 	public static void main(String[] args)
 	{
-		//System.out.println( "Hello World!" );
 		Application.launch(args);
 	}
 }
