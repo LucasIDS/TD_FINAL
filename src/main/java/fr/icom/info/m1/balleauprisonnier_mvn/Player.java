@@ -222,5 +222,6 @@ public class Player
 	}
 
 	void deplacement(double w5g,double w5d, int feinte){}
+	void suivit(double xbot){}
 
 }

@@ -28,14 +28,13 @@ public class IA extends Player {
         sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
         sprite.setX(getX());
         sprite.setY(getY());
-        this.vitesse = 0;
+        this.vitesse = 1;
     }
 
     private void changementDirectionBot(double w5g,double w5d, int feinte){
         if (this.x > w5d || this.x < w5g){
             this.vitesse = -this.vitesse;
         }
-
         //Gestion de la feinte
         if (feinte != 0 && this.x < w5d && this.x > w5g)  {
             Random randomGenerator = new Random();
@@ -50,6 +49,12 @@ public class IA extends Player {
     void deplacement(double w5g,double w5d, int feinte){
         this.changementDirectionBot(w5g, w5d, feinte);
         this.x += this.step * this.vitesse;
+        spriteAnimate();
+
+    }
+
+    void suivit(double xbot){
+        this.x = xbot;
         spriteAnimate();
 
     }

@@ -145,16 +145,30 @@ public class Field extends Canvas {
 
 	public void deplacementBot(){
 		int feinte = 0;
-		for (int i=1;i<3;i++) {
-			team1[i].deplacement((i-1) * (width / 5)-10, i * (width / 5)-40,  feinte);
-			team2[i].deplacement((i-1) * (width / 5)-10, i * (width / 5)-40,  feinte);
-		}
+		int boutton = 2;
+		if (boutton == 1) {
+			for (int i = 1; i < 3; i++) {
+				team1[i].deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
+				team2[i].deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
+			}
 
-		for (int i=3;i<5;i++) {
-			team1[i].deplacement(i * (width / 5)-10, (i+1) * (width / 5)-40, feinte);
-			team2[i].deplacement(i * (width / 5)-10, (i+1) * (width / 5)-40, feinte);
+			for (int i = 3; i < 5; i++) {
+				team1[i].deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
+				team2[i].deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
+			}
+		}
+		else if(boutton==2){
+			for (int i = 1; i < 3; i++) {
+				team1[i].suivit(team1[0].x-((3-i)*(width / 5)));
+				team2[i].suivit(team2[0].x-((3-i)*(width / 5)));
+			}
+			for (int i = 3; i < 5; i++) {
+				team1[i].suivit(team1[0].x+((i-2)*(width / 5)));
+				team2[i].suivit(team2[0].x+((i-2)*(width / 5)));
+			}
 		}
 	}
+
 
 
 	public void initialisationJoueurs(){
