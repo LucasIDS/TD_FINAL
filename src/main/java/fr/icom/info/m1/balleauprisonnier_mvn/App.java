@@ -29,16 +29,16 @@ public class App extends Application
 		// On crée le terrain de jeu et on l'ajoute à la racine de la scene
 		Field gameField = new Field( 600, 600 );
 		root.getChildren().add( gameField );
-		root.getChildren().add(gameField.getJoueurs(1)[0].sprite);
-		root.getChildren().add(gameField.getJoueurs(2)[0].sprite);
-		root.getChildren().add(gameField.getJoueurs(1)[1].sprite);
-		root.getChildren().add(gameField.getJoueurs(2)[1].sprite);
-		root.getChildren().add(gameField.getJoueurs(1)[2].sprite);
-		root.getChildren().add(gameField.getJoueurs(2)[2].sprite);
-		root.getChildren().add(gameField.getJoueurs(1)[3].sprite);
-		root.getChildren().add(gameField.getJoueurs(2)[3].sprite);
-		root.getChildren().add(gameField.getJoueurs(1)[4].sprite);
-		root.getChildren().add(gameField.getJoueurs(2)[4].sprite);
+		root.getChildren().add(gameField.getJoueurs(1).get(0).sprite);
+		root.getChildren().add(gameField.getJoueurs(2).get(0).sprite);
+		root.getChildren().add(gameField.getJoueurs(1).get(1).sprite);
+		root.getChildren().add(gameField.getJoueurs(2).get(1).sprite);
+		root.getChildren().add(gameField.getJoueurs(1).get(2).sprite);
+		root.getChildren().add(gameField.getJoueurs(2).get(2).sprite);
+		root.getChildren().add(gameField.getJoueurs(1).get(3).sprite);
+		root.getChildren().add(gameField.getJoueurs(2).get(3).sprite);
+		root.getChildren().add(gameField.getJoueurs(1).get(4).sprite);
+		root.getChildren().add(gameField.getJoueurs(2).get(4).sprite);
 
 		// On ajoute la scene à la fenêtre et on affiche
 		stage.setScene( scene );

@@ -3,6 +3,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 
+import java.util.ArrayList;
 
 
 public class Display {
@@ -22,9 +23,9 @@ public class Display {
         gc.drawImage(uneImage,x,y);
     }
 
-    public void displayPlayer(GraphicsContext gc, Player[] team1, Player[] team2, int indiceTeam1, int indiceTeam2 ){
-        this.displayOne(gc,team1[indiceTeam1]);
-        this.displayOne(gc,team2[indiceTeam2]);
+    public void displayPlayer(GraphicsContext gc, ArrayList<Player> team1, ArrayList<Player> team2, int indiceTeam1, int indiceTeam2 ){
+        this.displayOne(gc,team1.get(indiceTeam1));
+        this.displayOne(gc,team2.get(indiceTeam2));
     }
 
     private void displayOne(GraphicsContext gc, Player player){

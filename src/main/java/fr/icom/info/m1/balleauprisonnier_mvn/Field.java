@@ -14,8 +14,10 @@ import javafx.scene.paint.Color;
 public class Field extends Canvas {
 
 	/** Joueurs */
-	Player [] team1 = new Player[5];
-	Player [] team2 = new Player[5];
+	Team team1 = new Team("Rouge");
+
+	Team team2 = new Team("Bleu");
+
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
 	/** Tableau traçant les événements */
@@ -89,17 +91,17 @@ public class Field extends Canvas {
 
 	}
 
-	public Player[] getJoueurs(int a) {
+	public ArrayList<Player> getJoueurs(int a) {
 		if (a==1)
 		{
-			return team1;
+			return team1.players;
 		}
 		else if (a==2)
 		{
-			return team2;
+			return team2.players;
 		}
 		else {
-			return new Player[0];
+			return new ArrayList<Player>();
 		}
 	}
 
@@ -111,31 +113,31 @@ public class Field extends Canvas {
 		}
 		// Collision en haut
 		if (myBall.y<=0){
-			team2[0].initBall(myBall);
+			team2.players.get(0).initBall(myBall);
 		}
 		// Collision en bas
 		if (myBall.y>=height){
-			team1[0].initBall(myBall);
+			team1.players.get(0).initBall(myBall);
 		}
 
 		boolean touche;
 		for(int i =0 ; i < 5 ; i ++){
-			if(team1[i].sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
-				touche = myBall.collisionWithPlayer(team1[i]);
+			if(team1.players.get(i).sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
+				touche = myBall.collisionWithPlayer(team1.players.get(i));
 				if(touche) {
-					team2[0].initBall(myBall);
+					team2.players.get(i).initBall(myBall);
 				}
 			}
 		}
 
-		for (Player player: team1) {
+		for (Player player: team1.players) {
 
 		}
-		for (Player player: team2) {
+		for (Player player: team2.players) {
 			if(player.sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
 				touche = myBall.collisionWithPlayer(player);
 				if(touche) {
-					team1[0].initBall(myBall);
+					team1.players.get(0).initBall(myBall);
 				}
 			}
 		}
@@ -147,23 +149,23 @@ public class Field extends Canvas {
 		int boutton = 2;
 		if (boutton == 1) {
 			for (int i = 1; i < 3; i++) {
-				team1[i].deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
-				team2[i].deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
+				team1.players.get(i).deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
+				team2.players.get(i).deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
 			}
 
 			for (int i = 3; i < 5; i++) {
-				team1[i].deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
-				team2[i].deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
+				team1.players.get(i).deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
+				team2.players.get(i).deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
 			}
 		}
 		else if(boutton==2){
 			for (int i = 1; i < 3; i++) {
-				team1[i].suivit(team1[0].x-((3-i)*(width / 5)));
-				team2[i].suivit(team2[0].x-((3-i)*(width / 5)));
+				team1.players.get(i).suivit(team1.players.get(0).x-((3-i)*(width / 5)));
+				team2.players.get(i).suivit(team2.players.get(0).x-((3-i)*(width / 5)));
 			}
 			for (int i = 3; i < 5; i++) {
-				team1[i].suivit(team1[0].x+((i-2)*(width / 5)));
-				team2[i].suivit(team2[0].x+((i-2)*(width / 5)));
+				team1.players.get(i).suivit(team1.players.get(0).x+((i-2)*(width / 5)));
+				team2.players.get(i).suivit(team2.players.get(0).x+((i-2)*(width / 5)));
 			}
 		}
 	}
@@ -176,17 +178,17 @@ public class Field extends Canvas {
 		int vieBaseBot = 2;
 		int vieBasePlayer = 5;
 
-		team1[0] = new Player(gc, colorMap[0], width/2, height-100, bottom,null,vieBasePlayer);
-		team1[1] = new IA(gc, colorMap[0], (width / 10), height-100, bottom,null,vieBaseBot);
-		team1[2] = new IA(gc, colorMap[0], 3*(width/10), height-100, bottom,null,vieBaseBot);
-		team1[3] = new IA(gc, colorMap[0], 7*(width/10), height-100, bottom,null,vieBaseBot);
-		team1[4] = new IA(gc, colorMap[0], 9*(width/10), height-100, bottom,null,vieBaseBot);
+		team1.players.add(new Player(gc, colorMap[0], width/2, height-100, bottom,null,vieBasePlayer));
+		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, bottom,null,vieBaseBot));
+		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, bottom,null,vieBaseBot));
+		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, bottom,null,vieBaseBot));
+		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, bottom,null,vieBaseBot));
 
-		team2[0] = new Player(gc, colorMap[1], width/2, 20, top,myBall,vieBasePlayer);
-		team2[1] = new IA(gc, colorMap[1], 1*(width/10), 20, top,null,vieBaseBot);
-		team2[2] = new IA(gc, colorMap[1], 3*(width/10), 20, top,null,vieBaseBot);
-		team2[3] = new IA(gc, colorMap[1], 7*(width/10), 20, top,null,vieBaseBot);
-		team2[4] = new IA(gc, colorMap[1], 9*(width/10), 20, top,null,vieBaseBot);
+		team2.players.add(new Player(gc, colorMap[1], width/2, 20, top,myBall,vieBasePlayer));
+		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, top,null,vieBaseBot));
+		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, top,null,vieBaseBot));
+		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, top,null,vieBaseBot));
+		team2.players.add( new IA(gc, colorMap[1], 9*(width/10), 20, top,null,vieBaseBot));
 
 	}
 
@@ -194,7 +196,7 @@ public class Field extends Canvas {
 	public void affichage(Display afficheur,Ball myBall){
 
 		afficheur.displayBall(gc ,myBall.getImgBall(), myBall.x, myBall.y);
-		afficheur.displayPlayer(gc,team1,team2,0,0);
+		afficheur.displayPlayer(gc,team1.players,team2.players,0,0);
 		}
 
 
@@ -224,46 +226,46 @@ public class Field extends Canvas {
 
 		if (input.contains("LEFT"))
 		{
-			team1[0].moveLeft();
+			team1.players.get(0).moveLeft();
 		}
 		if ( input.contains("RIGHT"))
 		{
-			team1[0].moveRight();
+			team1.players.get(0).moveRight();
 		}
 		if ( input.contains("UP"))
 		{
-			team1[0].turnLeft();
+			team1.players.get(0).turnLeft();
 		}
 		if ( input.contains("DOWN"))
 		{
-			team1[0].turnRight();
+			team1.players.get(0).turnRight();
 		}
 
 		if ( input.contains("M"))
 		{
-			team1[0].shoot();
+			team1.players.get(0).shoot();
 		}
 
 		if (input.contains("Q"))
 		{
-			team2[0].moveLeft();
+			team2.players.get(0).moveLeft();
 		}
 		if (input.contains("D"))
 		{
-			team2[0].moveRight();
+			team2.players.get(0).moveRight();
 		}
 		if (input.contains("Z"))
 		{
-			team2[0].turnLeft();
+			team2.players.get(0).turnLeft();
 		}
 		if ( input.contains("S"))
 		{
-			team2[0].turnRight();
+			team2.players.get(0).turnRight();
 		}
 
 		if ( input.contains("SPACE"))
 		{
-			team2[0].shoot();
+			team2.players.get(0).shoot();
 		}
 	}
 
