@@ -9,7 +9,11 @@ public class defenseState implements State{
     }
 
     public void recieveBall(){
-        System.out.printf("defense");
+        System.out.printf("recieve with defense state");
+    }
+
+    public void shoot(){
+        System.out.printf("shoot with defense state");
     }
 
 }

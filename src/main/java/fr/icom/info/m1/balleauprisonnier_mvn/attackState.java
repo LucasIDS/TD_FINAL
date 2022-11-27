@@ -10,7 +10,13 @@ public class attackState implements State{
     }
 
     public void recieveBall(){
-        System.out.printf("attak");
+        System.out.printf("receive with attak state");
     }
+
+
+    public void shoot(){
+        System.out.printf("shoot with attak state");
+    }
+
 
 }

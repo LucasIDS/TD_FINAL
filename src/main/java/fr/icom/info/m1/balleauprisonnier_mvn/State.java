@@ -4,4 +4,6 @@ public interface State {
 
     public void recieveBall();
 
+    public void shoot();
+
 }
