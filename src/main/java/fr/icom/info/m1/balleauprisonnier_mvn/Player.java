@@ -7,20 +7,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.sql.SQLOutput;
-import java.util.Random;
-
 
 /**
  *
- * Classe gerant un joueur
+ * Classe gérant un joueur
  *
  */
 public class Player
 {
 	protected double x;       // position horizontale du joueur
 	protected final double y; 	  // position verticale du joueur
-	double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
+	double angle; // rotation du joueur, devrait toujours être en 0 et 180
 	double step;    // pas d'un joueur
 
 	double vitesse;
@@ -31,9 +28,11 @@ public class Player
 	// On une image globale du joueur
 	Image directionArrow;
 
+	int vie;
+
 	Ball myBall;
 	Sprite sprite;
-	ImageView PlayerDirectionArrow;
+	ImageView playerDirectionArrow;
 
 	GraphicsContext graphicsContext;
 
@@ -44,7 +43,7 @@ public class Player
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
-	Player(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball ball)
+	Player(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball ball,int pVie)
 	{
 		// Tous les joueurs commencent au centre du canvas,
 		x = xInit;
@@ -53,21 +52,23 @@ public class Player
 		graphicsContext = gc;
 		playerColor=color;
 
-		angle = 0;
+		this.vie = pVie;
+
+		this.angle = 0;
 
 		// Image fleche
-		if(side=="top"){
+		if(side.equals("top")){
 			directionArrow = new Image("assets/PlayerArrowDown.png");
 		}
 		else{
 			directionArrow = new Image("assets/PlayerArrowUp.png");
 		}
-		PlayerDirectionArrow = new ImageView();
-		PlayerDirectionArrow.setImage(directionArrow);
-		PlayerDirectionArrow.setFitWidth(10);
-		PlayerDirectionArrow.setPreserveRatio(true);
-		PlayerDirectionArrow.setSmooth(true);
-		PlayerDirectionArrow.setCache(true);
+		playerDirectionArrow = new ImageView();
+		playerDirectionArrow.setImage(directionArrow);
+		playerDirectionArrow.setFitWidth(10);
+		playerDirectionArrow.setPreserveRatio(true);
+		playerDirectionArrow.setSmooth(true);
+		playerDirectionArrow.setCache(true);
 
 		//Image du joueur
 		Image tilesheetImage = new Image("assets/orc.png");
@@ -77,7 +78,7 @@ public class Player
 
 		//directionArrow = sprite.getClip().;
 
-		// Tous les joueurs ont une vitesse aleatoire entre 0.0 et 1.0
+		// Tous les joueurs ont une vitesse aléatoire entre 0.0 et 1.0
 		// Random randomGenerator = new Random();
 		//step = randomGenerator.nextFloat();
 		this.vitesse = 1;
@@ -139,6 +140,15 @@ public class Player
 		}
 	}
 
+	boolean lostVie(int nb){
+		boolean lostVie = false;
+		if (this.vie > 0){
+			this.vie -= nb;
+			lostVie = true;
+		}
+		return lostVie;
+	}
+
 
 	/**
 	 *  Rotation du joueur vers la gauche
@@ -166,10 +176,10 @@ public class Player
 
 	void shoot(){
 		sprite.playShoot();
-		if (myBall != null && this.side=="bottom"){
+		if (myBall != null && this.side.equals("bottom")){
 			this.myBall.setVelocityY(-Math.sin(Math.toRadians(90-this.angle)));
 			this.myBall.setVelocityX(+Math.cos(Math.toRadians(90-this.angle)));
-		}else if (myBall != null && this.side=="top"){
+		}else if (myBall != null && this.side.equals("top")){
 			this.myBall.setVelocityY(+Math.sin(Math.toRadians(90-this.angle)));
 			this.myBall.setVelocityX(-Math.cos(Math.toRadians(90-this.angle)));
 		}
@@ -186,11 +196,11 @@ public class Player
 	private void placementBall(){
 
 		if(myBall != null){
-			if (this.side=="bottom"){
+			if (this.side.equals("bottom")){
 				myBall.x = this.x+22;
 				myBall.y = this.y-22;
 			}
-			else if (this.side=="top"){
+			else if (this.side.equals("top")){
 				myBall.x = this.x+22;
 				myBall.y = this.y+60;
 			}
@@ -206,12 +216,11 @@ public class Player
 	}
 
 	void spriteAnimate(){
-		//System.out.println("Animating sprite");
 		if(!sprite.isRunning) {sprite.playContinuously();}
 		sprite.setX(x);
 		sprite.setY(y);
 	}
 
-	void deplacement(int w5g,int w5d, int feinte){}
+	void deplacement(double w5g,double w5d, int feinte){}
 
 }

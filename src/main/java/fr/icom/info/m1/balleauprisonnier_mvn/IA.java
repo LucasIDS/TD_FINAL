@@ -9,8 +9,12 @@ import java.util.Random;
 
 public class IA extends Player {
 
-    IA(GraphicsContext gc, String color, int xInit, int yInit, String side, Ball myBall) {
-        super(gc, color, xInit, yInit, side, myBall);
+
+
+    IA(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball myBall,int pVie) {
+        super(gc, color, xInit, yInit, side, myBall,pVie);
+
+        this.vie = pVie;
 
         Image tilesheetImage;
 
@@ -27,7 +31,7 @@ public class IA extends Player {
         this.vitesse = 0;
     }
 
-    private void changementDirectionBot(int w5g,int w5d, int feinte){
+    private void changementDirectionBot(double w5g,double w5d, int feinte){
         if (this.x > w5d || this.x < w5g){
             this.vitesse = -this.vitesse;
         }
@@ -42,7 +46,8 @@ public class IA extends Player {
         }
     }
 
-    void deplacement(int w5g,int w5d, int feinte){
+    @Override
+    void deplacement(double w5g,double w5d, int feinte){
         this.changementDirectionBot(w5g, w5d, feinte);
         this.x += this.step * this.vitesse;
         spriteAnimate();

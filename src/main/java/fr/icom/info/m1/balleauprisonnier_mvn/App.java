@@ -4,8 +4,9 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
+
 import javafx.stage.Stage;
+
 
 
 /**
@@ -31,7 +32,7 @@ public class App extends Application
 
 
 		// On crée le terrain de jeu et on l'ajoute à la racine de la scene
-		Field gameField = new Field(scene, 600, 600 );
+		Field gameField = new Field( 600, 600 );
 		root.getChildren().add( gameField );
 		root.getChildren().add(gameField.getJoueurs(1)[0].sprite);
 		root.getChildren().add(gameField.getJoueurs(2)[0].sprite);
@@ -45,7 +46,7 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2)[4].sprite);
 
 
-		// On ajoute la scene a la fenêtre et on affiche
+		// On ajoute la scene à la fenêtre et on affiche
 		stage.setScene( scene );
 		stage.show();
 	}

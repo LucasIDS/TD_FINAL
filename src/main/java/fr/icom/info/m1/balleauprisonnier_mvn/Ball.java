@@ -5,21 +5,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Ball  extends ImageView{
-
-    Sprite sprite;
-
-    double angle;
     double x;
     double y;
-
    private double velocityX;
-
    private  double velocityY;
-
     ImageView ivBall;
-
     Image imgBall;
-
     GraphicsContext graphicsContext;
 
     public Ball(GraphicsContext gc ,double pPositionX, double pPositionY, double pVelocityX,  double pVelocityY) {
@@ -41,6 +32,13 @@ public class Ball  extends ImageView{
         this.graphicsContext.drawImage(imgBall, this.x, this.y);
     }
 
+    boolean collisionWithPlayer(Player player){
+        boolean haveCollision = false;
+        if(this.velocityY != 0){
+            haveCollision = player.lostVie(1);
+        }
+        return haveCollision;
+    }
 
     void deplacementBall()
     {
@@ -49,33 +47,16 @@ public class Ball  extends ImageView{
 
     }
 
-    void setY(int y){
-        this.y = y;
-    }
-    void setX(int x){
-        this.x = x;
-    }
-
     void setVelocityY(double pVelocityY){
         this.velocityY = pVelocityY;
     }
-
     void setVelocityX(double pVelocityX){
         this.velocityX = pVelocityX;
     }
 
-    double getVelocityY(){
-        return this.velocityY;
-    };
-
     public void bounceX(){
         this.velocityX = -this.velocityX;
     }
-
-    public void bounceY(){
-        this.velocityY = -this.velocityY;
-    }
-
 }
 
 
