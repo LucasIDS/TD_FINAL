@@ -9,21 +9,21 @@ import java.util.Random;
 
 public class IA extends Player {
 
-    IA(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball myBall,int pVie) {
-        super(gc, color, xInit, yInit, side, myBall,pVie);
+    IA(GraphicsContext gc, String color, double xInit, double yInit, Ball myBall,int pVie,Team team) {
+        super(gc, color, xInit, yInit, myBall,pVie,team);
 
         this.vie = pVie;
 
         Image tilesheetImage;
 
-        if(Objects.equals(side, "top")){
+        if(Objects.equals(this.team.getName(), "top")){
            tilesheetImage = new Image("assets/PlayerBlue.png");
         }
         else{
            tilesheetImage = new Image("assets/PlayerRed.png");
         }
 
-        sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
+        sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName());
         sprite.setX(getX());
         sprite.setY(getY());
         this.vitesse = 1;

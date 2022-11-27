@@ -1,4 +1,7 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 
-public class State {
+public interface State {
+
+    public void recieveBall();
+
 }

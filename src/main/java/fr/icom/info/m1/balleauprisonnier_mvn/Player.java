@@ -21,9 +21,11 @@ public class Player
 
 	double feinteMax;
 	String playerColor;
-	String side;
+
 	// On une image globale du joueur
 	Image directionArrow;
+
+	protected Team team;
 
 	int vie;
 
@@ -40,12 +42,14 @@ public class Player
 	 * @param color couleur du joueur
 	 * @param yInit position verticale
 	 */
-	Player(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball ball,int pVie)
+	Player(GraphicsContext gc, String color, double xInit, double yInit, Ball ball,int pVie,Team team)
 	{
+
+		this.team = team;
+
 		// Tous les joueurs commencent au centre du canvas,
 		x = xInit;
 		y = yInit;
-		this.side = side;
 		graphicsContext = gc;
 		playerColor=color;
 
@@ -54,7 +58,7 @@ public class Player
 		this.angle = 0;
 
 		// Image fleche
-		if(side.equals("top")){
+		if(this.team.getName().equals("top")){
 			directionArrow = new Image("assets/PlayerArrowDown.png");
 		}
 		else{
@@ -69,7 +73,7 @@ public class Player
 
 		//Image du joueur
 		Image tilesheetImage = new Image("assets/orc.png");
-		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
+		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName());
 		sprite.setX(x);
 		sprite.setY(y);
 
@@ -162,10 +166,10 @@ public class Player
 
 	void shoot(){
 		sprite.playShoot();
-		if (myBall != null && this.side.equals("bottom")){
+		if (myBall != null && this.team.getName().equals("bottom")){
 			this.myBall.setVelocityY(-Math.sin(Math.toRadians(90-this.angle)));
 			this.myBall.setVelocityX(+Math.cos(Math.toRadians(90-this.angle)));
-		}else if (myBall != null && this.side.equals("top")){
+		}else if (myBall != null && this.team.getName().equals("top")){
 			this.myBall.setVelocityY(+Math.sin(Math.toRadians(90-this.angle)));
 			this.myBall.setVelocityX(-Math.cos(Math.toRadians(90-this.angle)));
 		}
@@ -182,11 +186,11 @@ public class Player
 	private void placementBall(){
 
 		if(myBall != null){
-			if (this.side.equals("bottom")){
+			if (this.team.getName().equals("bottom")){
 				myBall.x = this.x+22;
 				myBall.y = this.y-22;
 			}
-			else if (this.side.equals("top")){
+			else if (this.team.getName().equals("top")){
 				myBall.x = this.x+22;
 				myBall.y = this.y+60;
 			}

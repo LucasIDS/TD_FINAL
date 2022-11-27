@@ -14,9 +14,9 @@ import javafx.scene.paint.Color;
 public class Field extends Canvas {
 
 	/** Joueurs */
-	Team team1 = new Team("Rouge");
+	Team team1 = new Team("bottom",new defenseState());
 
-	Team team2 = new Team("Bleu");
+	Team team2 = new Team("top",new attackState());
 
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
@@ -173,22 +173,20 @@ public class Field extends Canvas {
 
 
 	public void initialisationJoueurs(Ball myBall){
-		String bottom = "bottom";
-		String top = "top";
 		int vieBaseBot = 2;
 		int vieBasePlayer = 5;
 
-		team1.players.add(new Player(gc, colorMap[0], width/2, height-100, bottom,null,vieBasePlayer));
-		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, bottom,null,vieBaseBot));
-		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, bottom,null,vieBaseBot));
-		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, bottom,null,vieBaseBot));
-		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, bottom,null,vieBaseBot));
+		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));
+		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1));
+		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1));
+		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1));
+		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1));
 
-		team2.players.add(new Player(gc, colorMap[1], width/2, 20, top,myBall,vieBasePlayer));
-		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, top,null,vieBaseBot));
-		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, top,null,vieBaseBot));
-		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, top,null,vieBaseBot));
-		team2.players.add( new IA(gc, colorMap[1], 9*(width/10), 20, top,null,vieBaseBot));
+		team2.players.add(new Player(gc, colorMap[1], width/2, 20, myBall,vieBasePlayer,team2));
+		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2));
+		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2));
+		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2));
+		team2.players.add( new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2));
 
 	}
 
