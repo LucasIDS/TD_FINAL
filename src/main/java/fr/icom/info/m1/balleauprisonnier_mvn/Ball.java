@@ -1,35 +1,26 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
-
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-public class Ball  extends ImageView{
+public class Ball{
+    private static Ball theBall = null;
     double x;
     double y;
    private double velocityX;
    private  double velocityY;
-    ImageView ivBall;
-    Image imgBall;
-    GraphicsContext graphicsContext;
+   Image imgBall;
 
-    public Ball(GraphicsContext gc ,double pPositionX, double pPositionY, double pVelocityX,  double pVelocityY) {
-        this.x = pPositionX;
-        this.y = pPositionY;
-
-        this.velocityX = pVelocityX;
-        this.velocityY = pVelocityY;
-
-        this.graphicsContext = gc;
-
-        this.imgBall = new Image("assets/ball.png",25,25,true,false);
-        this.ivBall = new ImageView(imgBall);
+    public static synchronized Ball getInstance(){
+        if(theBall == null){
+            theBall = new Ball(0,0,0,0);
+        }
+        return theBall;
     }
 
-    void display()
-    {
-        this.graphicsContext.save(); // saves the current state on stack, including the current transform
-        this.graphicsContext.drawImage(imgBall, this.x, this.y);
+    private Ball(double pPositionX, double pPositionY, double pVelocityX,  double pVelocityY){
+        this.x = pPositionX;
+        this.y = pPositionY;
+        this.velocityX = pVelocityX;
+        this.velocityY = pVelocityY;
+        this.imgBall = new Image("assets/ball.png",25,25,true,false);
     }
 
     boolean collisionWithPlayer(Player player){
@@ -53,7 +44,6 @@ public class Ball  extends ImageView{
     void setVelocityX(double pVelocityX){
         this.velocityX = pVelocityX;
     }
-
     public void bounceX(){
         this.velocityX = -this.velocityX;
     }

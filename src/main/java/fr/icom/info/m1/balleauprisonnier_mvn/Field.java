@@ -45,13 +45,18 @@ public class Field extends Canvas {
 		gc = this.getGraphicsContext2D();
 
 		/* Création de la balle*/
-		myBall = new Ball(gc,0,0,0,0);
+		Ball myBall = Ball.getInstance();
 
 		/* On initialise le terrain de jeu */
 		initialisationJoueurs();
 
+		/* Création d'un afficheur gérant l'affichage */
+		Display afficheur = Display.getInstance();
+
 		/* Commencement du jeu */
-		bouclePrincipale(myBall);
+		bouclePrincipale(myBall,afficheur);
+
+
 	}
 
 	/**
@@ -62,7 +67,7 @@ public class Field extends Canvas {
 	 * soit environ 60 fois par seconde.
 	 *
 	 */
-	public void bouclePrincipale(Ball myBall){
+	public void bouclePrincipale(Ball myBall, Display afficheur){
 		new AnimationTimer()
 		{
 			public void handle(long currentNanoTime)
@@ -78,7 +83,7 @@ public class Field extends Canvas {
 				deplacementBot();
 
 				myBall.deplacementBall();
-				myBall.display();
+				affichage(afficheur,myBall);
 				gestionCollision(myBall);
 			}
 		}.start(); // On lance la boucle de rafraichissement
@@ -115,8 +120,6 @@ public class Field extends Canvas {
 		}
 
 		boolean touche;
-
-
 		for(int i =0 ; i < 5 ; i ++){
 			if(team1[i].sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
 				touche = myBall.collisionWithPlayer(team1[i]);
@@ -129,7 +132,6 @@ public class Field extends Canvas {
 		for (Player player: team1) {
 
 		}
-
 		for (Player player: team2) {
 			if(player.sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
 				touche = myBall.collisionWithPlayer(player);
@@ -138,8 +140,6 @@ public class Field extends Canvas {
 				}
 			}
 		}
-
-
 
 	}
 
@@ -166,9 +166,7 @@ public class Field extends Canvas {
 		team1[0] = new Player(gc, colorMap[0], width/2, height-100, bottom,null,vieBasePlayer);
 		team1[0].display();
 
-
 		team1[1] = new IA(gc, colorMap[0], (width / 10), height-100, bottom,null,vieBaseBot);
-
 
 		team1[2] = new IA(gc, colorMap[0], 3*(width/10), height-100, bottom,null,vieBaseBot);
 		team1[2].display();
@@ -178,7 +176,6 @@ public class Field extends Canvas {
 
 		team1[4] = new IA(gc, colorMap[0], 9*(width/10), height-100, bottom,null,vieBaseBot);
 		team1[4].display();
-
 
 		team2[0] = new Player(gc, colorMap[1], width/2, 20, top,myBall,vieBasePlayer);
 		team2[0].display();
@@ -194,10 +191,14 @@ public class Field extends Canvas {
 
 		team2[4] = new IA(gc, colorMap[1], 9*(width/10), 20, top,null,vieBaseBot);
 		team2[4].display();
-
 	}
 
 
+	public void affichage(Display theDisplayer,Ball myBall){
+
+			theDisplayer.display(gc ,myBall.imgBall, myBall.x, myBall.y);
+
+		}
 
 
 	public void gestionTouche(){
