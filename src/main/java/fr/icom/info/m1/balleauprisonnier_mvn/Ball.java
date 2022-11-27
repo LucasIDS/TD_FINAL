@@ -2,11 +2,11 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 import javafx.scene.image.Image;
 public class Ball{
     private static Ball theBall = null;
-    double x;
-    double y;
+   double x;
+   double y;
    private double velocityX;
    private  double velocityY;
-   Image imgBall;
+   private Image imgBall;
 
     public static synchronized Ball getInstance(){
         if(theBall == null){
@@ -29,6 +29,18 @@ public class Ball{
             haveCollision = player.lostVie(1);
         }
         return haveCollision;
+    }
+
+    double getX(){
+        return this.x;
+    }
+
+    double getY(){
+        return this.y;
+    }
+
+    Image getImgBall(){
+        return this.imgBall;
     }
 
     void deplacementBall()

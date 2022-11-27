@@ -1,8 +1,5 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
-
-
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.transform.Rotate;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -17,7 +14,7 @@ public class Player
 {
 	protected double x;       // position horizontale du joueur
 	protected final double y; 	  // position verticale du joueur
-	double angle; // rotation du joueur, devrait toujours être en 0 et 180
+	private double angle; // rotation du joueur, devrait toujours être en 0 et 180
 	double step;    // pas d'un joueur
 
 	double vitesse;
@@ -93,26 +90,11 @@ public class Player
 	double getY(){
 		return this.y;
 	}
-	/**
-	 *  Affichage du joueur
-	 */
-	void display()
-	{
-		graphicsContext.save(); // saves the current state on stack, including the current transform
-		rotate(graphicsContext, angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
-		graphicsContext.drawImage(directionArrow, x, y);
-		graphicsContext.restore(); // back to original state (before rotation)
-	}
 
-	private void rotate(GraphicsContext gc, double angle, double px, double py) {
-		Rotate r = new Rotate(angle, px, py);
-		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-	}
 
 	/**
 	 *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
 	 */
-
 	void moveLeft()
 	{
 		if (x > 5)
@@ -138,6 +120,10 @@ public class Player
 			this.myBall.x += step;
 			}
 		}
+	}
+
+	public double getAngle(){
+		return this.angle;
 	}
 
 	boolean lostVie(int nb){

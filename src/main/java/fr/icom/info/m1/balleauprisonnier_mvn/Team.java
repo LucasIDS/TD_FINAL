@@ -1,18 +1,21 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Team {
     public static final int MAXPLAYERS = 5;
     private int nombreDeJoueurActuel;
     private String name;
-    List<Player> players;
+    ArrayList<Player> players;
 
     State state;
 
-    public Team(List<Player> pPlayers, String  name){
-        this.players = pPlayers;
+    public Team(String  name){
+        this.players = new ArrayList<>();
         this.name = name;
         this.nombreDeJoueurActuel = this.players.size();
+
     }
 
 

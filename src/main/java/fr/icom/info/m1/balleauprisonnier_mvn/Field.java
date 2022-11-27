@@ -24,8 +24,6 @@ public class Field extends Canvas {
 	final double width;
 	final double height;
 
-	Ball myBall;
-
 	ArrayList<String> input = new ArrayList<>();
 
 	/**
@@ -41,20 +39,13 @@ public class Field extends Canvas {
 
 		/* Permet de capturer le focus et donc les événements clavier et souris */
 		this.setFocusTraversable(true);
-
 		gc = this.getGraphicsContext2D();
-
-		/* Création de la balle*/
-		Ball myBall = Ball.getInstance();
-
-		/* On initialise le terrain de jeu */
-		initialisationJoueurs();
 
 		/* Création d'un afficheur gérant l'affichage */
 		Display afficheur = Display.getInstance();
 
 		/* Commencement du jeu */
-		bouclePrincipale(myBall,afficheur);
+		bouclePrincipale(afficheur);
 
 
 	}
@@ -67,7 +58,13 @@ public class Field extends Canvas {
 	 * soit environ 60 fois par seconde.
 	 *
 	 */
-	public void bouclePrincipale(Ball myBall, Display afficheur){
+	public void bouclePrincipale(Display afficheur){
+		/* Création de la balle*/
+		Ball myBall = Ball.getInstance();
+
+		/* On initialise le terrain de jeu */
+		initialisationJoueurs(myBall);
+
 		new AnimationTimer()
 		{
 			public void handle(long currentNanoTime)
@@ -76,14 +73,16 @@ public class Field extends Canvas {
 				gc.setFill( Color.LIGHTGRAY);
 				gc.fillRect(0, 0, width, height);
 
-				// Deplacement et affichage des joueurs
-				gestionTouche();
-				team1[0].display();
-				team2[0].display();
-				deplacementBot();
-
-				myBall.deplacementBall();
+				// Affichage
 				affichage(afficheur,myBall);
+
+				//Gestion des touches
+				gestionTouche();
+
+				//Deplacement
+				deplacementBot();
+				myBall.deplacementBall();
+
 				gestionCollision(myBall);
 			}
 		}.start(); // On lance la boucle de rafraichissement
@@ -171,47 +170,31 @@ public class Field extends Canvas {
 
 
 
-	public void initialisationJoueurs(){
+	public void initialisationJoueurs(Ball myBall){
 		String bottom = "bottom";
 		String top = "top";
 		int vieBaseBot = 2;
 		int vieBasePlayer = 5;
 
 		team1[0] = new Player(gc, colorMap[0], width/2, height-100, bottom,null,vieBasePlayer);
-		team1[0].display();
-
 		team1[1] = new IA(gc, colorMap[0], (width / 10), height-100, bottom,null,vieBaseBot);
-
 		team1[2] = new IA(gc, colorMap[0], 3*(width/10), height-100, bottom,null,vieBaseBot);
-		team1[2].display();
-
 		team1[3] = new IA(gc, colorMap[0], 7*(width/10), height-100, bottom,null,vieBaseBot);
-		team1[3].display();
-
 		team1[4] = new IA(gc, colorMap[0], 9*(width/10), height-100, bottom,null,vieBaseBot);
-		team1[4].display();
 
 		team2[0] = new Player(gc, colorMap[1], width/2, 20, top,myBall,vieBasePlayer);
-		team2[0].display();
-
 		team2[1] = new IA(gc, colorMap[1], 1*(width/10), 20, top,null,vieBaseBot);
-		team2[1].display();
-
 		team2[2] = new IA(gc, colorMap[1], 3*(width/10), 20, top,null,vieBaseBot);
-		team2[2].display();
-
 		team2[3] = new IA(gc, colorMap[1], 7*(width/10), 20, top,null,vieBaseBot);
-		team2[3].display();
-
 		team2[4] = new IA(gc, colorMap[1], 9*(width/10), 20, top,null,vieBaseBot);
-		team2[4].display();
+
 	}
 
 
-	public void affichage(Display theDisplayer,Ball myBall){
+	public void affichage(Display afficheur,Ball myBall){
 
-			theDisplayer.display(gc ,myBall.imgBall, myBall.x, myBall.y);
-
+		afficheur.displayBall(gc ,myBall.getImgBall(), myBall.x, myBall.y);
+		afficheur.displayPlayer(gc,team1,team2,0,0);
 		}
 
 

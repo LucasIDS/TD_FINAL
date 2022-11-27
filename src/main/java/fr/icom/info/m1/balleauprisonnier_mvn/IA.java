@@ -9,8 +9,6 @@ import java.util.Random;
 
 public class IA extends Player {
 
-
-
     IA(GraphicsContext gc, String color, double xInit, double yInit, String side, Ball myBall,int pVie) {
         super(gc, color, xInit, yInit, side, myBall,pVie);
 
@@ -50,7 +48,6 @@ public class IA extends Player {
         this.changementDirectionBot(w5g, w5d, feinte);
         this.x += this.step * this.vitesse;
         spriteAnimate();
-
     }
 
     void suivit(double xbot){

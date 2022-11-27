@@ -1,13 +1,8 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
-
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
-
-
 
 /**
  * Classe principale de l'application
@@ -44,7 +39,6 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2)[3].sprite);
 		root.getChildren().add(gameField.getJoueurs(1)[4].sprite);
 		root.getChildren().add(gameField.getJoueurs(2)[4].sprite);
-
 
 		// On ajoute la scene à la fenêtre et on affiche
 		stage.setScene( scene );
