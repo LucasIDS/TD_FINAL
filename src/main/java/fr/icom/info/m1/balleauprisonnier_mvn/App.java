@@ -19,6 +19,8 @@ public class App extends Application
 	 */
 	@Override
 	public void start(Stage stage) {
+
+		System.out.println("Hello");
 		// Nom de la fenêtre
 		stage.setTitle("BalleAuPrisonnier");
 

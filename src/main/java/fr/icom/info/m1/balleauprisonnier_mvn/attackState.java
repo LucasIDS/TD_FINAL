@@ -2,21 +2,42 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 
 public class attackState implements State{
 
-    Player player;
+    Team team;
 
-
-    public void setPlayer(Player player){
-        this.player = player;
+    public attackState(Team team) {
+        this.team = team;
     }
 
-    public void recieveBall(){
-        System.out.printf("receive with attak state");
-    }
-
-
-    public void shoot(){
-        System.out.printf("shoot with attak state");
+    public attackState() {
+        this.team = null;
     }
 
 
+    public void recieveBall(Player player,Ball myBall,Team team2){
+        if (player.team.players.get(0) != player){
+            player.initBall(myBall);
+        }
+    }
+
+    public void setTeam(Team team){
+        this.team = team;
+    }
+
+
+    public void changeState(Ball myBall){
+        this.team.changeState(new defenseState(this.team));
+    }
+
+
+    public void shoot(Player player){
+        player.sprite.playShoot();
+        if (player.myBall != null && player.team.getName().equals("bottom")){
+            player.myBall.setVelocityY(-Math.sin(Math.toRadians(90-player.getAngle())));
+            player.myBall.setVelocityX(+Math.cos(Math.toRadians(90-player.getAngle())));
+        }else if (player.myBall != null && player.team.getName().equals("top")){
+            player.myBall.setVelocityY(+Math.sin(Math.toRadians(90-player.getAngle())));
+            player.myBall.setVelocityX(-Math.cos(Math.toRadians(90-player.getAngle())));
+        }
+        player.myBall = null;
+    }
 }

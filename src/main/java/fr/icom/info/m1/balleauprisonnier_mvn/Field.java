@@ -1,6 +1,4 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
-
-
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -88,7 +86,6 @@ public class Field extends Canvas {
 				gestionCollision(myBall);
 			}
 		}.start(); // On lance la boucle de rafraichissement
-
 	}
 
 	public ArrayList<Player> getJoueurs(int a) {
@@ -111,34 +108,22 @@ public class Field extends Canvas {
 		if (myBall.x>=width-40 || myBall.x <= 0){
 			myBall.bounceX();
 		}
-		// Collision en haut
-		if (myBall.y<=0){
-			team2.players.get(0).initBall(myBall);
-		}
-		// Collision en bas
-		if (myBall.y>=height){
-			team1.players.get(0).initBall(myBall);
-		}
 
-		boolean touche;
-		for(int i =0 ; i < 5 ; i ++){
-			if(team1.players.get(i).sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
-				touche = myBall.collisionWithPlayer(team1.players.get(i));
-				if(touche) {
-					team2.players.get(i).initBall(myBall);
-				}
-			}
+		// Collision en haut
+		if (myBall.y<=0 ||  myBall.y>=height){
+			team1.state.changeState(myBall);
+			team2.state.changeState(myBall);
 		}
 
 		for (Player player: team1.players) {
-
+			if(player.sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
+				myBall.collisionWithPlayer(player,team2);
+			}
 		}
+
 		for (Player player: team2.players) {
 			if(player.sprite.getBoundsInParent().intersects(myBall.x,myBall.y,22,22)){
-				touche = myBall.collisionWithPlayer(player);
-				if(touche) {
-					team1.players.get(0).initBall(myBall);
-				}
+				myBall.collisionWithPlayer(player,team1);
 			}
 		}
 
@@ -173,6 +158,12 @@ public class Field extends Canvas {
 
 
 	public void initialisationJoueurs(Ball myBall){
+
+		team1.state.setTeam(team1);
+		team2.state.setTeam(team2);
+
+
+
 		int vieBaseBot = 2;
 		int vieBasePlayer = 5;
 
@@ -187,7 +178,6 @@ public class Field extends Canvas {
 		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2));
 		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2));
 		team2.players.add( new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2));
-
 	}
 
 
@@ -268,6 +258,3 @@ public class Field extends Canvas {
 	}
 
 }
-
-
-

@@ -23,12 +23,10 @@ public class Ball{
         this.imgBall = new Image("assets/ball.png",25,25,true,false);
     }
 
-    boolean collisionWithPlayer(Player player){
-        boolean haveCollision = false;
+    void collisionWithPlayer(Player player,Team team){
         if(this.velocityY != 0){
-            haveCollision = player.lostVie(1);
+            player.recieveBall(this,team);
         }
-        return haveCollision;
     }
 
     double getX(){

@@ -2,18 +2,33 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 
 public class defenseState implements State{
 
-    Player player;
+    Team team;
 
-    public void setPlayer(Player player){
-        this.player = player;
+    public defenseState(Team team){
+        this.team = team;
     }
 
-    public void recieveBall(){
-        System.out.printf("recieve with defense state");
+    public defenseState(){
     }
 
-    public void shoot(){
-        System.out.printf("shoot with defense state");
+    public void setTeam(Team team){
+        this.team = team;
+    }
+
+
+    public void recieveBall(Player player,Ball myBall,Team team2){
+        player.lostVie(1);
+        this.changeState(myBall);
+        team2.state.changeState(myBall);
+    }
+
+    public void changeState(Ball myBall){
+        this.team.changeState(new attackState(this.team));
+        this.team.players.get(0).initBall(myBall);
+    }
+
+    public void shoot(Player player){
+        System.out.printf("i cant shoot");
     }
 
 }

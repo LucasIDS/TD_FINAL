@@ -16,19 +16,14 @@ public class Player
 	protected final double y; 	  // position verticale du joueur
 	private double angle; // rotation du joueur, devrait toujours être en 0 et 180
 	double step;    // pas d'un joueur
-
 	double vitesse;
-
 	double feinteMax;
 	String playerColor;
 
 	// On une image globale du joueur
 	Image directionArrow;
-
 	protected Team team;
-
 	int vie;
-
 	Ball myBall;
 	Sprite sprite;
 	ImageView playerDirectionArrow;
@@ -130,13 +125,12 @@ public class Player
 		return this.angle;
 	}
 
-	boolean lostVie(int nb){
-		boolean lostVie = false;
-		if (this.vie > 0){
-			this.vie -= nb;
-			lostVie = true;
-		}
-		return lostVie;
+	void recieveBall(Ball myBall,Team team2){
+		this.team.state.recieveBall(this,myBall,team2);
+	}
+
+	void lostVie(int vie){
+		this.vie -= vie;
 	}
 
 
@@ -145,7 +139,7 @@ public class Player
 	 */
 	void turnLeft()
 	{
-		if (angle <= 60)
+		if (angle <= 90)
 		{
 			angle += 1;
 		}
@@ -157,7 +151,7 @@ public class Player
 	 */
 	void turnRight()
 	{
-		if (angle >= -70 )
+		if (angle >= -90 )
 		{
 			angle -=1;
 		}
@@ -165,15 +159,7 @@ public class Player
 
 
 	void shoot(){
-		sprite.playShoot();
-		if (myBall != null && this.team.getName().equals("bottom")){
-			this.myBall.setVelocityY(-Math.sin(Math.toRadians(90-this.angle)));
-			this.myBall.setVelocityX(+Math.cos(Math.toRadians(90-this.angle)));
-		}else if (myBall != null && this.team.getName().equals("top")){
-			this.myBall.setVelocityY(+Math.sin(Math.toRadians(90-this.angle)));
-			this.myBall.setVelocityX(-Math.cos(Math.toRadians(90-this.angle)));
-		}
-		this.myBall = null;
+		this.team.state.shoot(this);
 	}
 
 	void initBall(Ball balle){
