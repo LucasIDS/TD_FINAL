@@ -18,7 +18,8 @@ public class defenseState implements State{
 
     public void recieveBall(Player player,Ball myBall,Team team2){
         player.lostVie(1);
-        this.changeState(myBall);
+        this.team.changeState(new attackState(this.team));
+        player.initBall(myBall);
         team2.state.changeState(myBall);
     }
 

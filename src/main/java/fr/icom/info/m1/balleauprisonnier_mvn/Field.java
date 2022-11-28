@@ -138,24 +138,23 @@ public class Field extends Canvas {
 	public void deplacementBot(int boutton){
 		int feinte = 0;
 		if (boutton == 1) {
-			for (int i = 1; i < 3; i++) {
-				team1.players.get(i).deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
-				team2.players.get(i).deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
+			for (int i = 1; i < team1.players.size(); i++) {
+				if (team1.players.get(i)!=null) {
+					team1.players.get(i).deplacement(feinte);
+				}
 			}
-
-			for (int i = 3; i < 5; i++) {
-				team1.players.get(i).deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
-				team2.players.get(i).deplacement(i * (width / 5) - 10, (i + 1) * (width / 5) - 40, feinte);
+			for (int i = 1; i < team2.players.size(); i++) {
+				if (team2.players.get(i)!=null) {
+					team2.players.get(i).deplacement(feinte);
+				}
 			}
 		}
 		else if(boutton==2){
-			for (int i = 1; i < 3; i++) {
-				team1.players.get(i).suivit(team1.players.get(0).x-((3-i)*(width / 5)));
-				team2.players.get(i).suivit(team2.players.get(0).x-((3-i)*(width / 5)));
+			for (int i = 1; i < team1.players.size(); i++) {
+				team1.players.get(i).suivit();
 			}
-			for (int i = 3; i < 5; i++) {
-				team1.players.get(i).suivit(team1.players.get(0).x+((i-2)*(width / 5)));
-				team2.players.get(i).suivit(team2.players.get(0).x+((i-2)*(width / 5)));
+			for (int i = 1; i < team2.players.size(); i++) {
+				team2.players.get(i).suivit();
 			}
 		}
 	}
@@ -173,16 +172,16 @@ public class Field extends Canvas {
 		int vieBasePlayer = 5;
 
 		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));
-		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1));
-		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1));
-		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1));
-		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1));
+		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10));
+		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1,2 * (width / 5) - 40,(width / 5) - 10));
+		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1,4 * (width / 5) - 40,3 * (width / 5) - 10));
+		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1,5 * (width / 5) - 40,4 * (width / 5) - 10));
 
 		team2.players.add(new Player(gc, colorMap[1], width/2, 20, myBall,vieBasePlayer,team2));
-		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2));
-		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2));
-		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2));
-		team2.players.add( new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2));
+		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2,width/5 - 40,-10));
+		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2,2 * (width / 5) - 40,(width / 5) - 10));
+		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2,4 * (width / 5) - 40,3 * (width / 5) - 10));
+		team2.players.add(new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2,5 * (width / 5) - 40,4 * (width / 5) - 10));
 	}
 
 
@@ -236,7 +235,7 @@ public class Field extends Canvas {
 				}
 			}
 			else {
-				team1.players.get(0).moveLeft();
+				team1.players.get(0).moveRight();
 			}
 		}
 		if ( input.contains("UP"))
@@ -271,9 +270,9 @@ public class Field extends Canvas {
 					team2.players.get(0).moveRight();
 				}
 			}
-			else {
-				team2.players.get(0).moveLeft();
-			}
+			else{
+			team2.players.get(0).moveRight();
+		}
 		}
 		if (input.contains("Z"))
 		{

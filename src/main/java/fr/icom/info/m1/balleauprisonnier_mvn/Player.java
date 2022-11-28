@@ -16,6 +16,7 @@ public class Player
 	protected final double y; 	  // position verticale du joueur
 	private double angle; // rotation du joueur, devrait toujours être en 0 et 180
 	double step;    // pas d'un joueur
+	protected double xInit;
 	double vitesse;
 	double feinteMax;
 	String playerColor;
@@ -45,6 +46,8 @@ public class Player
 		// Tous les joueurs commencent au centre du canvas,
 		x = xInit;
 		y = yInit;
+		this.xInit = xInit;
+
 		graphicsContext = gc;
 		playerColor=color;
 
@@ -197,7 +200,7 @@ public class Player
 		sprite.setY(y);
 	}
 
-	void deplacement(double w5g,double w5d, int feinte){}
-	void suivit(double xbot){}
+	void deplacement(int feinte){}
+	void suivit(){}
 
 }

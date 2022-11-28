@@ -9,10 +9,14 @@ import java.util.Random;
 
 public class IA extends Player {
 
-    IA(GraphicsContext gc, String color, double xInit, double yInit, Ball myBall,int pVie,Team team) {
+    private double xMax;
+    private double xMin;
+    IA(GraphicsContext gc, String color, double xInit, double yInit, Ball myBall,int pVie,Team team, double xMax, double xMin) {
         super(gc, color, xInit, yInit, myBall,pVie,team);
 
         this.vie = pVie;
+        this.xMax = xMax;
+        this.xMin = xMin;
 
         Image tilesheetImage;
 
@@ -44,17 +48,23 @@ public class IA extends Player {
     }
 
     @Override
-    void deplacement(double w5g,double w5d, int feinte){
-        this.changementDirectionBot(w5g, w5d, feinte);
+    void deplacement(int feinte){
+        this.changementDirectionBot(this.xMin, this.xMax, feinte);
         this.x += this.step * this.vitesse;
         spriteAnimate();
     }
 
-    void suivit(double xbot){
-        this.x = xbot;
+    void suivit(){
+        double difference = this.team.players.get(0).xInit - this.xInit;
+        this.x = this.team.players.get(0).x -difference;
         spriteAnimate();
 
     }
-
+    double getxMax(){
+        return this.xMax;
+    }
+    double getxMin(){
+        return this.xMin;
+    }
 }
 
