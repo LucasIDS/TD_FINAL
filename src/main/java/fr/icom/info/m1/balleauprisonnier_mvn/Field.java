@@ -64,7 +64,7 @@ public class Field extends Canvas {
 	public void bouclePrincipale(Display afficheur){
 		/* Création de la balle*/
 		Ball myBall = Ball.getInstance();
-		int b = 2;
+		int b = 1;
 		/* On initialise le terrain de jeu */
 		initialisationJoueurs(myBall);
 

@@ -3,7 +3,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 public class AttackState implements State{
 
     Team team;
-
+    double wait = 0;
     public AttackState(Team team) {
         this.team = team;
     }
@@ -30,15 +30,36 @@ public class AttackState implements State{
 
 
     public void shoot(Player player){
-        if (player.myBall != null && player.team.getName().equals("bottom")){
+        if (player.team.players.get(0)!=player){
+            if(player.myBall!=null){
+                wait+=1;
+            }
+            if(player.myBall!=null && wait>=50){
+                if (player.myBall != null && player.team.getName().equals("bottom")){
+                    player.sprite.playShoot();
+                    player.myBall.setVelocityY(-Math.sin(Math.toRadians(90-player.getAngle())));
+                    player.myBall.setVelocityX(+Math.cos(Math.toRadians(90-player.getAngle())));
+                }else if (player.myBall != null && player.team.getName().equals("top")){
+                    player.sprite.playShoot();
+                    player.myBall.setVelocityY(+Math.sin(Math.toRadians(90-player.getAngle())));
+                    player.myBall.setVelocityX(-Math.cos(Math.toRadians(90-player.getAngle())));
+                }
+                player.myBall = null;
+                wait = 0;
+
+            }
+        }
+        else if (player.myBall != null && player.team.getName().equals("bottom")){
             player.sprite.playShoot();
             player.myBall.setVelocityY(-Math.sin(Math.toRadians(90-player.getAngle())));
             player.myBall.setVelocityX(+Math.cos(Math.toRadians(90-player.getAngle())));
+            player.myBall = null;
         }else if (player.myBall != null && player.team.getName().equals("top")){
             player.sprite.playShoot();
             player.myBall.setVelocityY(+Math.sin(Math.toRadians(90-player.getAngle())));
             player.myBall.setVelocityX(-Math.cos(Math.toRadians(90-player.getAngle())));
+            player.myBall = null;
         }
-        player.myBall = null;
+
     }
 }
