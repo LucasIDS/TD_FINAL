@@ -42,7 +42,9 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(1).get(4).sprite);
 		root.getChildren().add(gameField.getJoueurs(2).get(4).sprite);
 		root.getChildren().add(gameField.getBouton());
-
+		for (LabelGestion Label:gameField.getLabels()){
+			root.getChildren().add(Label);
+		}
 		// On ajoute la scene à la fenêtre et on affiche
 		stage.setScene( scene );
 		stage.show();

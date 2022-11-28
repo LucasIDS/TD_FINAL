@@ -1,15 +1,21 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 
-public class Display {
+public class Display{
     private static Display afficheur = null;
+    ArrayList<LabelGestion> labels;
     private Display(){
+        labels = new ArrayList<>();
     }
+
+
 
     public static synchronized Display getInstance(){
         if(afficheur == null){
@@ -18,7 +24,7 @@ public class Display {
         return afficheur;
     }
 
-    public void displayBall(GraphicsContext gc, Image uneImage, double x, double y ){
+    public void displayImg(GraphicsContext gc, Image uneImage, double x, double y ){
         gc.save(); // saves the current state on stack, including the current transform
         gc.drawImage(uneImage,x,y);
     }
@@ -40,4 +46,20 @@ public class Display {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
+
+    void displayVie(){
+        for (LabelGestion label:this.labels){
+            label.setLabelXY();
+            label.setText();
+        }
+    }
+
+    void initLabel(ArrayList<Player>team1,ArrayList<Player>team2){
+        for (Player joueur:team1){
+            this.labels.add(new LabelGestion(joueur));
+        }
+        for (Player joueur:team2){
+            this.labels.add(new LabelGestion(joueur));
+        }
+    }
 }

@@ -8,6 +8,7 @@ public class Ball{
    private  double velocityY;
    private Image imgBall;
 
+   private double boost = 1;
     public static synchronized Ball getInstance(){
         if(theBall == null){
             theBall = new Ball(0,0,0,0);
@@ -43,9 +44,15 @@ public class Ball{
 
     void deplacementBall()
     {
-        this.x +=  3*velocityX ;
-        this.y +=  3*velocityY;
+        this.boostBall();
+        this.x +=  3*velocityX*boost ;
+        this.y +=  3*velocityY*boost;
 
+    }
+    void boostBall(){
+        if (boost<5){
+            boost+=0.001;
+        }
     }
 
     void setVelocityY(double pVelocityY){

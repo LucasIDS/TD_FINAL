@@ -134,6 +134,10 @@ public class Player
 
 	void lostVie(int vie){
 		this.vie -= vie;
+		if (this.vie <= 0){
+			this.x = 1000;
+			spriteAnimate();
+		}
 	}
 
 

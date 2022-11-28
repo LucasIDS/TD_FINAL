@@ -4,7 +4,10 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
 
 
 /**
@@ -14,8 +17,13 @@ public class Field extends Canvas {
 
 	/** Joueurs */
 	Team team1 = new Team("bottom",new defenseState());
-	Button button1 = new Button("Button with Text");
 	Team team2 = new Team("top",new attackState());
+	Button button1 = new Button("");
+	Display afficheur = Display.getInstance();
+
+	Image terrain = new Image("assets/terrain.png",605,600,false,false);
+
+
 
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
@@ -43,7 +51,6 @@ public class Field extends Canvas {
 		gc = this.getGraphicsContext2D();
 
 		/* Création d'un afficheur gérant l'affichage */
-		Display afficheur = Display.getInstance();
 
 		/* Commencement du jeu */
 		bouclePrincipale(afficheur);
@@ -59,12 +66,15 @@ public class Field extends Canvas {
 	 * soit environ 60 fois par seconde.
 	 *
 	 */
+
 	public void bouclePrincipale(Display afficheur){
 		/* Création de la balle*/
 		Ball myBall = Ball.getInstance();
 		int b = 2;
 		/* On initialise le terrain de jeu */
 		initialisationJoueurs(myBall);
+
+		afficheur.initLabel(team1.players,team2.players);
 
 		new AnimationTimer()
 		{
@@ -86,6 +96,7 @@ public class Field extends Canvas {
 				myBall.deplacementBall();
 
 				gestionCollision(myBall);
+
 			}
 		}.start(); // On lance la boucle de rafraichissement
 	}
@@ -104,10 +115,15 @@ public class Field extends Canvas {
 		}
 	}
 
+	public ArrayList<LabelGestion> getLabels() {
+		return afficheur.labels;
+	}
+
 
 	public Button getBouton(){
 		return button1;
 	}
+
 	public void gestionCollision(Ball myBall){
 
 		// Collision sur les côtés
@@ -136,7 +152,7 @@ public class Field extends Canvas {
 	}
 
 	public void deplacementBot(int boutton){
-		int feinte = 0;
+		int feinte = 50;
 		if (boutton == 1) {
 			for (int i = 1; i < team1.players.size(); i++) {
 				if (team1.players.get(i)!=null) {
@@ -168,8 +184,8 @@ public class Field extends Canvas {
 
 
 
-		int vieBaseBot = 2;
-		int vieBasePlayer = 5;
+		int vieBaseBot = 1;
+		int vieBasePlayer = 1;
 
 		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));
 		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10));
@@ -187,8 +203,10 @@ public class Field extends Canvas {
 
 	public void affichage(Display afficheur,Ball myBall){
 
-		afficheur.displayBall(gc ,myBall.getImgBall(), myBall.x, myBall.y);
+		afficheur.displayImg(gc ,myBall.getImgBall(), myBall.x, myBall.y);
 		afficheur.displayPlayer(gc,team1.players,team2.players,0,0);
+		afficheur.displayVie();
+		//afficheur.displayImg(gc,terrain,0,0);
 		}
 
 

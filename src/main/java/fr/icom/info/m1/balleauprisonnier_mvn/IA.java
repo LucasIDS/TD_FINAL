@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class IA extends Player {
-
+    Image tilesheetImage;
     private double xMax;
     private double xMin;
     IA(GraphicsContext gc, String color, double xInit, double yInit, Ball myBall,int pVie,Team team, double xMax, double xMin) {
@@ -18,15 +18,12 @@ public class IA extends Player {
         this.xMax = xMax;
         this.xMin = xMin;
 
-        Image tilesheetImage;
-
         if(Objects.equals(this.team.getName(), "top")){
-           tilesheetImage = new Image("assets/PlayerBlue.png");
+            tilesheetImage = new Image("assets/PlayerBlue.png");
         }
         else{
-           tilesheetImage = new Image("assets/PlayerRed.png");
+            tilesheetImage = new Image("assets/PlayerRed.png");
         }
-
         sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName());
         sprite.setX(getX());
         sprite.setY(getY());
@@ -56,8 +53,10 @@ public class IA extends Player {
 
     void suivit(){
         double difference = this.team.players.get(0).xInit - this.xInit;
-        this.x = this.team.players.get(0).x -difference;
-        spriteAnimate();
+        if (this.vie!=0) {
+            this.x = this.team.players.get(0).x - difference;
+            spriteAnimate();
+        }
 
     }
     double getxMax(){
