@@ -30,11 +30,12 @@ public class AttackState implements State{
 
 
     public void shoot(Player player){
-        player.sprite.playShoot();
         if (player.myBall != null && player.team.getName().equals("bottom")){
+            player.sprite.playShoot();
             player.myBall.setVelocityY(-Math.sin(Math.toRadians(90-player.getAngle())));
             player.myBall.setVelocityX(+Math.cos(Math.toRadians(90-player.getAngle())));
         }else if (player.myBall != null && player.team.getName().equals("top")){
+            player.sprite.playShoot();
             player.myBall.setVelocityY(+Math.sin(Math.toRadians(90-player.getAngle())));
             player.myBall.setVelocityX(-Math.cos(Math.toRadians(90-player.getAngle())));
         }

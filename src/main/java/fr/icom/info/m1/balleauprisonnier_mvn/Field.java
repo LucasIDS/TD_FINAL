@@ -167,6 +167,16 @@ public class Field extends Canvas {
 				team2.players.get(i).suivit();
 			}
 		}
+		for (int i = 1; i < team1.players.size(); i++) {
+			team1.state.shoot(team1.players.get(i));
+		}
+
+		for (int i = 1; i < team2.players.size(); i++) {
+			team2.state.shoot(team2.players.get(i));
+		}
+
+
+
 	}
 
 
@@ -178,7 +188,7 @@ public class Field extends Canvas {
 
 
 
-		int vieBaseBot = 1;
+		int vieBaseBot = 3;
 		int vieBasePlayer = 1;
 
 		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));

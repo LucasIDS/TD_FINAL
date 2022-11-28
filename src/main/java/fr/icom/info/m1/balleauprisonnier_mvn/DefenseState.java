@@ -33,7 +33,7 @@ public class DefenseState implements State{
     }
 
     public void shoot(Player player){
-        System.out.printf("i cant shoot");
+
     }
 
 }

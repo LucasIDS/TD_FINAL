@@ -57,8 +57,9 @@ public class IA extends Player {
             this.x = this.team.players.get(0).x - difference;
             spriteAnimate();
         }
-
     }
+
+
     double getxMax(){
         return this.xMax;
     }
