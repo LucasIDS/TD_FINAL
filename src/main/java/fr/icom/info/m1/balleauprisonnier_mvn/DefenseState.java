@@ -15,11 +15,15 @@ public class DefenseState implements State{
         this.team = team;
     }
 
-
     public void recieveBall(Player player,Ball myBall,Team team2){
         player.lostVie(1);
-        this.team.changeState(new AttackState(this.team));
-        player.initBall(myBall);
+        if(player.vie > 0){
+            this.team.changeState(new AttackState(this.team));
+            player.initBall(myBall);
+        }
+        else {
+            this.changeState(myBall);
+        }
         team2.state.changeState(myBall);
     }
 
