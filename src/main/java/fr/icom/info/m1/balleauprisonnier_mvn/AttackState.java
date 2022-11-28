@@ -1,14 +1,14 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 
-public class attackState implements State{
+public class AttackState implements State{
 
     Team team;
 
-    public attackState(Team team) {
+    public AttackState(Team team) {
         this.team = team;
     }
 
-    public attackState() {
+    public AttackState() {
         this.team = null;
     }
 
@@ -25,7 +25,7 @@ public class attackState implements State{
 
 
     public void changeState(Ball myBall){
-        this.team.changeState(new defenseState(this.team));
+        this.team.changeState(new DefenseState(this.team));
     }
 
 

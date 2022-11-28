@@ -4,10 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Label;
 
 
 /**
@@ -16,14 +13,10 @@ import javafx.scene.control.Label;
 public class Field extends Canvas {
 
 	/** Joueurs */
-	Team team1 = new Team("bottom",new defenseState());
-	Team team2 = new Team("top",new attackState());
+	Team team1 = new Team("bottom",new DefenseState());
+	Team team2 = new Team("top",new AttackState());
 	Button button1 = new Button("");
 	Display afficheur = Display.getInstance();
-
-	Image terrain = new Image("assets/terrain.png",605,600,false,false);
-
-
 
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
@@ -51,6 +44,7 @@ public class Field extends Canvas {
 		gc = this.getGraphicsContext2D();
 
 		/* Création d'un afficheur gérant l'affichage */
+		Display afficheur = Display.getInstance();
 
 		/* Commencement du jeu */
 		bouclePrincipale(afficheur);
