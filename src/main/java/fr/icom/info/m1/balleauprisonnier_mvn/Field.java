@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 
 
@@ -13,7 +14,7 @@ public class Field extends Canvas {
 
 	/** Joueurs */
 	Team team1 = new Team("bottom",new defenseState());
-
+	Button button1 = new Button("Button with Text");
 	Team team2 = new Team("top",new attackState());
 
 	/** Couleurs possibles */
@@ -61,7 +62,7 @@ public class Field extends Canvas {
 	public void bouclePrincipale(Display afficheur){
 		/* Création de la balle*/
 		Ball myBall = Ball.getInstance();
-
+		int b = 2;
 		/* On initialise le terrain de jeu */
 		initialisationJoueurs(myBall);
 
@@ -69,6 +70,7 @@ public class Field extends Canvas {
 		{
 			public void handle(long currentNanoTime)
 			{
+
 				// On nettoie le canvas à chaque frame
 				gc.setFill( Color.LIGHTGRAY);
 				gc.fillRect(0, 0, width, height);
@@ -77,10 +79,10 @@ public class Field extends Canvas {
 				affichage(afficheur,myBall);
 
 				//Gestion des touches
-				gestionTouche();
+				gestionTouche(b);
 
 				//Deplacement
-				deplacementBot();
+				deplacementBot(b);
 				myBall.deplacementBall();
 
 				gestionCollision(myBall);
@@ -102,6 +104,10 @@ public class Field extends Canvas {
 		}
 	}
 
+
+	public Button getBouton(){
+		return button1;
+	}
 	public void gestionCollision(Ball myBall){
 
 		// Collision sur les côtés
@@ -129,9 +135,8 @@ public class Field extends Canvas {
 
 	}
 
-	public void deplacementBot(){
+	public void deplacementBot(int boutton){
 		int feinte = 0;
-		int boutton = 2;
 		if (boutton == 1) {
 			for (int i = 1; i < 3; i++) {
 				team1.players.get(i).deplacement((i - 1) * (width / 5) - 10, i * (width / 5) - 40, feinte);
@@ -188,7 +193,7 @@ public class Field extends Canvas {
 		}
 
 
-	public void gestionTouche(){
+	public void gestionTouche(int boutton){
 		/*
 		 * Event Listener du clavier
 		 * quand une touche est pressée on la rajoute à la liste d'input
@@ -214,11 +219,25 @@ public class Field extends Canvas {
 
 		if (input.contains("LEFT"))
 		{
-			team1.players.get(0).moveLeft();
+			if (boutton==2) {
+				if (team1.players.get(0).getX() >= 2*(width/5)){
+					team1.players.get(0).moveLeft();
+				}
+			}
+			else {
+				team1.players.get(0).moveLeft();
+			}
 		}
-		if ( input.contains("RIGHT"))
+		if (input.contains("RIGHT"))
 		{
-			team1.players.get(0).moveRight();
+			if (boutton==2) {
+				if (team1.players.get(0).getX() <= 3*(width/5)-50){
+					team1.players.get(0).moveRight();
+				}
+			}
+			else {
+				team1.players.get(0).moveLeft();
+			}
 		}
 		if ( input.contains("UP"))
 		{
@@ -236,11 +255,25 @@ public class Field extends Canvas {
 
 		if (input.contains("Q"))
 		{
-			team2.players.get(0).moveLeft();
+			if (boutton==2) {
+				if (team2.players.get(0).getX() >= 2*(width/5)){
+					team2.players.get(0).moveLeft();
+				}
+			}
+			else {
+				team2.players.get(0).moveLeft();
+			}
 		}
 		if (input.contains("D"))
 		{
-			team2.players.get(0).moveRight();
+			if (boutton==2) {
+				if (team2.players.get(0).getX() <= 3*(width/5)-50){
+					team2.players.get(0).moveRight();
+				}
+			}
+			else {
+				team2.players.get(0).moveLeft();
+			}
 		}
 		if (input.contains("Z"))
 		{
