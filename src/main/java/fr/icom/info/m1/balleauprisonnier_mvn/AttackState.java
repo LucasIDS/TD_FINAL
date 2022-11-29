@@ -30,11 +30,13 @@ public class AttackState implements State{
 
 
     public void shoot(Player player){
+        // Partie BOT
         if (player.team.players.get(0)!=player){
             if(player.myBall!=null){
                 wait+=1;
             }
             if(player.myBall!=null && wait>=50){
+                player.setAngle(20 + (Math.random() * (-100 - 20)));
                 if (player.myBall != null && player.team.getName().equals("bottom")){
                     player.sprite.playShoot();
                     player.myBall.setVelocityY(-Math.sin(Math.toRadians(90-player.getAngle())));
@@ -49,6 +51,7 @@ public class AttackState implements State{
 
             }
         }
+        // Partie joueur
         else if (player.myBall != null && player.team.getName().equals("bottom")){
             player.sprite.playShoot();
             player.myBall.setVelocityY(-Math.sin(Math.toRadians(90-player.getAngle())));

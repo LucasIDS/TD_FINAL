@@ -21,7 +21,7 @@ public class Ball{
         this.y = pPositionY;
         this.velocityX = pVelocityX;
         this.velocityY = pVelocityY;
-        this.imgBall = new Image("assets/ball.png",25,25,true,false);
+        this.imgBall = new Image("assets/Ball.png",25,25,true,false);
     }
 
     void collisionWithPlayer(Player player,Team team){

@@ -2,6 +2,12 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.scene.layout.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -10,7 +16,6 @@ import javafx.stage.Stage;
  */
 public class App extends Application
 {
-
 	/**
 	 * En javafx start() lance l'application
 	 * On cree le SceneGraph de l'application ici
@@ -19,15 +24,10 @@ public class App extends Application
 	 */
 	@Override
 	public void start(Stage stage) {
-
-		System.out.println("Hello");
 		// Nom de la fenêtre
 		stage.setTitle("BalleAuPrisonnier");
-
 		Group root = new Group();
 		Scene scene = new Scene( root );
-
-
 		// On crée le terrain de jeu et on l'ajoute à la racine de la scene
 		Field gameField = new Field( 600, 600 );
 		root.getChildren().add( gameField );

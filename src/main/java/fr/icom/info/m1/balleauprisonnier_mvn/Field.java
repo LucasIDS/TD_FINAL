@@ -4,8 +4,14 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.scene.layout.*;
 
 /**
  * Classe gérant le terrain de jeu.
@@ -16,7 +22,9 @@ public class Field extends Canvas {
 	Team team1 = new Team("bottom",new DefenseState());
 	Team team2 = new Team("top",new AttackState());
 	Button button1 = new Button("");
+
 	Display afficheur = Display.getInstance();
+
 
 	/** Couleurs possibles */
 	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
@@ -112,8 +120,6 @@ public class Field extends Canvas {
 	public ArrayList<LabelGestion> getLabels() {
 		return afficheur.labels;
 	}
-
-
 	public Button getBouton(){
 		return button1;
 	}
@@ -188,8 +194,8 @@ public class Field extends Canvas {
 
 
 
-		int vieBaseBot = 3;
-		int vieBasePlayer = 1;
+		int vieBaseBot = 2;
+		int vieBasePlayer = 3;
 
 		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));
 		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10));
@@ -210,7 +216,7 @@ public class Field extends Canvas {
 		afficheur.displayImg(gc ,myBall.getImgBall(), myBall.x, myBall.y);
 		afficheur.displayPlayer(gc,team1.players,team2.players,0,0);
 		afficheur.displayVie();
-		//afficheur.displayImg(gc,terrain,0,0);
+		//afficheur.displayImg(gc,bGround,0,0);
 		}
 
 

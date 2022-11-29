@@ -205,6 +205,10 @@ public class Player
 	}
 
 	void deplacement(int feinte){}
-	void suivit(){}
-
+	void suivit(){
+	}
+	void setAngle(double angle){
+		this.angle=angle;
+	}
 }
+
