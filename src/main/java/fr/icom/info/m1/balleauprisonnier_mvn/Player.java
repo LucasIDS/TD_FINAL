@@ -71,7 +71,7 @@ public class Player
 
 		//Image du joueur
 		Image tilesheetImage = new Image("assets/orc.png");
-		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName(),this.vie);
+		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName());
 		sprite.setX(x);
 		sprite.setY(y);
 

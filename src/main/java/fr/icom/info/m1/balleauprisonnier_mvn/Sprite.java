@@ -22,14 +22,11 @@ class Sprite extends ImageView {
     private Timeline timeline;
     public boolean isRunning;
 
-    public double vie;
-    public String side;
-    public Sprite(Image animationImage, int numCells, int numRows, Duration frameTime, String side, double vie) {
+    public Sprite(Image animationImage, int numCells, int numRows, Duration frameTime, String side) {
         this.numCells = numCells;
-        this.vie = vie;
         double cellWidth  = 64;//animationImage.getWidth() / numCells; //64x64
         double cellHeight = 64;//animationImage.getHeight() / numRows;
-        this.side = side;
+
 
         numCellsWalk = 9;
 

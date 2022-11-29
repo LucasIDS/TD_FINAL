@@ -24,7 +24,7 @@ public class IA extends Player {
         else{
             tilesheetImage = new Image("assets/PlayerRed.png");
         }
-        sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName(),this.vie);
+        sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName());
         sprite.setX(getX());
         sprite.setY(getY());
         this.vitesse = 1;
@@ -48,11 +48,8 @@ public class IA extends Player {
     void deplacement(int feinte){
         this.changementDirectionBot(this.xMin, this.xMax, feinte);
         this.x += this.step * this.vitesse;
-        if (this.vie>0){
-            spriteAnimate();
-        } else if (this.vie<=0){
-            spriteAnimate();
-        }
+        spriteAnimate();
+
     }
 
     void suivit(){
