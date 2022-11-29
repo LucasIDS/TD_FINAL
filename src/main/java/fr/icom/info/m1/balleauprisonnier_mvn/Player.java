@@ -22,12 +22,15 @@ public class Player
 	protected DeplacementStrategy deplacementStrategy;
 	String playerColor;
 
+
 	// On une image globale du joueur
 	Image directionArrow;
 	protected Team team;
 	int vie;
 	Ball myBall;
 	Sprite sprite;
+	Sprite spriteExplo;
+	double wait =0;
 	ImageView playerDirectionArrow;
 
 	GraphicsContext graphicsContext;
@@ -76,6 +79,9 @@ public class Player
 		sprite.setX(x);
 		sprite.setY(y);
 
+		Image imageExplo = new Image("assets/PlayerBlue.png");
+		spriteExplo = new Sprite(imageExplo, 0,0, Duration.seconds(0.1), this.team.getName());
+		spriteExplo.setX(-1000);
 		this.vitesse = 1;
 		this.step = 3;
 		myBall = ball;
@@ -131,8 +137,10 @@ public class Player
 	void lostVie(int vie){
 		this.vie -= vie;
 		if (this.vie <= 0){
+			spriteExplo.setX(this.x);
+			spriteExplo.setY(this.y);
+			spriteExplo.playExplosion();
 			this.x = 1000;
-			spriteAnimate();
 		}
 	}
 
@@ -185,7 +193,6 @@ public class Player
 			}
 		}
 	}
-
 	void spriteAnimate(){
 		if(!sprite.isRunning) {sprite.playContinuously();}
 		sprite.setX(x);

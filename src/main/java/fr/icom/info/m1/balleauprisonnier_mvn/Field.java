@@ -94,14 +94,14 @@ public class Field extends Canvas {
 
 				gestionCollision(myBall);
 
-				if(team1.players.get(0).vie <= 0 || team2.players.get(0).vie <= 0){
+				if(team1.players.get(0).vie <= 0){
 					this.stop();
-					System.out.println("l'équipe 2 à gagné (Vive les bleu ! )");
+					System.out.println("l'Equipe 2 a gagne (Vive les bleus ! )");
 					App.stopApp();
 				}
 				if(team2.players.get(0).vie <= 0){
 					this.stop();
-					System.out.println("l'équipe 1 à gagné (Les rouge ne perdent jamais ! )");
+					System.out.println("l'Equipe 1 a gagne (Les rouges ne perdent jamais ! )");
 					App.stopApp();
 				}
 
@@ -123,6 +123,7 @@ public class Field extends Canvas {
 			return new ArrayList<>();
 		}
 	}
+
 
 	public List<LabelGestion> getLabels() {
 		return afficheur.labels;
@@ -179,16 +180,16 @@ public class Field extends Canvas {
 		int vieBasePlayer = 3;
 
 		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));
-		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10,new RandomDeplacementStrategy(10)));
-		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1,2 * (width / 5) - 40,(width / 5) - 10,new RandomDeplacementStrategy(10)));
-		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1,4 * (width / 5) - 40,3 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
-		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1,5 * (width / 5) - 40,4 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
+		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10,new RandomDeplacementStrategy(50)));
+		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1,2 * (width / 5) - 40,(width / 5) - 10,new RandomDeplacementStrategy(50)));
+		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1,4 * (width / 5) - 40,3 * (width / 5) - 10,new RandomDeplacementStrategy(50)));
+		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1,5 * (width / 5) - 40,4 * (width / 5) - 10,new RandomDeplacementStrategy(50)));
 
 		team2.players.add(new Player(gc, colorMap[1], width/2, 20, myBall,vieBasePlayer,team2));
-		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2,width/5 - 40,-10,new RandomDeplacementStrategy(10)));
-		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2,2 * (width / 5) - 40,(width / 5) - 10,new RandomDeplacementStrategy(10)));
-		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2,4 * (width / 5) - 40,3 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
-		team2.players.add(new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2,5 * (width / 5) - 40,4 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
+		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2,width/5 - 40,-10,new RandomDeplacementStrategy(50)));
+		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2,2 * (width / 5) - 40,(width / 5) - 10,new RandomDeplacementStrategy(50)));
+		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2,4 * (width / 5) - 40,3 * (width / 5) - 10,new RandomDeplacementStrategy(50)));
+		team2.players.add(new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2,5 * (width / 5) - 40,4 * (width / 5) - 10,new RandomDeplacementStrategy(50)));
 	}
 
 

@@ -99,13 +99,15 @@ class Sprite extends ImageView {
         timeline.stop();
         timeline.playFromStart();
     }
-    public void playDeath() {
+
+    public void playExplosion() {
         isRunning = true;
         frameCounter.set(0);
         timeline = deathTimeline;
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setCycleCount(6);
         timeline.stop();
         timeline.playFromStart();
+
     }
 
     public void playShoot(){

@@ -22,7 +22,6 @@ public class DefenseState implements State{
             player.initBall(myBall);
         }
         else {
-            player.sprite.playDeath();
             this.changeState(myBall);
         }
         team2.state.changeState(myBall);

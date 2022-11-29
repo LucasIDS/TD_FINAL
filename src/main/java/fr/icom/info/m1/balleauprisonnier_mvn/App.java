@@ -3,7 +3,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
@@ -48,6 +47,18 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2).get(3).sprite);
 		root.getChildren().add(gameField.getJoueurs(1).get(4).sprite);
 		root.getChildren().add(gameField.getJoueurs(2).get(4).sprite);
+
+		root.getChildren().add(gameField.getJoueurs(1).get(0).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(2).get(0).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(1).get(1).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(2).get(1).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(1).get(2).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(2).get(2).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(1).get(3).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(2).get(3).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(1).get(4).spriteExplo);
+		root.getChildren().add(gameField.getJoueurs(2).get(4).spriteExplo);
+
 		/*
 		for (Button button:gameField.getBoutons()){
 			root.getChildren().add(button);
