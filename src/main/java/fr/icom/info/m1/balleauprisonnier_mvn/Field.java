@@ -1,17 +1,14 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.layout.*;
+
 
 /**
  * Classe gérant le terrain de jeu.
@@ -21,7 +18,6 @@ public class Field extends Canvas {
 	/** Joueurs */
 	Team team1 = new Team("bottom",new DefenseState());
 	Team team2 = new Team("top",new AttackState());
-	Button button1 = new Button("");
 
 	Display afficheur = Display.getInstance();
 
@@ -51,9 +47,6 @@ public class Field extends Canvas {
 		this.setFocusTraversable(true);
 		gc = this.getGraphicsContext2D();
 
-		/* Création d'un afficheur gérant l'affichage */
-		Display afficheur = Display.getInstance();
-
 		/* Commencement du jeu */
 		bouclePrincipale(afficheur);
 
@@ -72,12 +65,12 @@ public class Field extends Canvas {
 	public void bouclePrincipale(Display afficheur){
 		/* Création de la balle*/
 		Ball myBall = Ball.getInstance();
-		int b = 1;
+
 		/* On initialise le terrain de jeu */
 		initialisationJoueurs(myBall);
 
 		afficheur.initLabel(team1.players,team2.players);
-
+		afficheur.initButton();
 		new AnimationTimer()
 		{
 			public void handle(long currentNanoTime)
@@ -91,10 +84,10 @@ public class Field extends Canvas {
 				affichage(afficheur,myBall);
 
 				//Gestion des touches
-				gestionTouche(b);
+				gestionTouche();
 
 				//Deplacement
-				deplacementBot(b);
+				deplacementBot();
 				myBall.deplacementBall();
 
 				gestionCollision(myBall);
@@ -103,7 +96,7 @@ public class Field extends Canvas {
 		}.start(); // On lance la boucle de rafraichissement
 	}
 
-	public ArrayList<Player> getJoueurs(int a) {
+	public List<Player> getJoueurs(int a) {
 		if (a==1)
 		{
 			return team1.players;
@@ -113,24 +106,22 @@ public class Field extends Canvas {
 			return team2.players;
 		}
 		else {
-			return new ArrayList<Player>();
+			return new ArrayList<>();
 		}
 	}
 
-	public ArrayList<LabelGestion> getLabels() {
+	public List<LabelGestion> getLabels() {
 		return afficheur.labels;
 	}
-	public Button getBouton(){
-		return button1;
+	public List<Button> getBoutons(){
+		return afficheur.buttons;
 	}
 
 	public void gestionCollision(Ball myBall){
-
 		// Collision sur les côtés
 		if (myBall.x>=width-40 || myBall.x <= 0){
 			myBall.bounceX();
 		}
-
 		// Collision en haut
 		if (myBall.y<=0 ||  myBall.y>=height){
 			team1.state.changeState(myBall);
@@ -148,41 +139,19 @@ public class Field extends Canvas {
 				myBall.collisionWithPlayer(player,team1);
 			}
 		}
-
 	}
 
-	public void deplacementBot(int boutton){
-		int feinte = 50;
-		if (boutton == 1) {
-			for (int i = 1; i < team1.players.size(); i++) {
-				if (team1.players.get(i)!=null) {
-					team1.players.get(i).deplacement(feinte);
-				}
+	public void deplacementBot(){
+		for (int i = 1; i < Team.MAXPLAYERS; i++) {
+			if (team1.players.get(i)!=null) {
+				team1.players.get(i).deplacement();
+				team1.state.shoot(team1.players.get(i));
 			}
-			for (int i = 1; i < team2.players.size(); i++) {
-				if (team2.players.get(i)!=null) {
-					team2.players.get(i).deplacement(feinte);
-				}
+			if(team2.players.get(i)!=null){
+				team2.players.get(i).deplacement();
+				team2.state.shoot(team2.players.get(i));
 			}
 		}
-		else if(boutton==2){
-			for (int i = 1; i < team1.players.size(); i++) {
-				team1.players.get(i).suivit();
-			}
-			for (int i = 1; i < team2.players.size(); i++) {
-				team2.players.get(i).suivit();
-			}
-		}
-		for (int i = 1; i < team1.players.size(); i++) {
-			team1.state.shoot(team1.players.get(i));
-		}
-
-		for (int i = 1; i < team2.players.size(); i++) {
-			team2.state.shoot(team2.players.get(i));
-		}
-
-
-
 	}
 
 
@@ -192,46 +161,46 @@ public class Field extends Canvas {
 		team1.state.setTeam(team1);
 		team2.state.setTeam(team2);
 
-
-
 		int vieBaseBot = 2;
 		int vieBasePlayer = 3;
 
 		team1.players.add(new Player(gc, colorMap[0], width/2, height-100,null,vieBasePlayer,team1));
-		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10));
-		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1,2 * (width / 5) - 40,(width / 5) - 10));
-		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1,4 * (width / 5) - 40,3 * (width / 5) - 10));
-		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1,5 * (width / 5) - 40,4 * (width / 5) - 10));
+		team1.players.add(new IA(gc, colorMap[0], (width / 10), height-100, null,vieBaseBot,team1,width/5 - 40,-10,new RandomDeplacementStrategy(10)));
+		team1.players.add(new IA(gc, colorMap[0], 3*(width/10), height-100, null,vieBaseBot,team1,2 * (width / 5) - 40,(width / 5) - 10,new RandomDeplacementStrategy(10)));
+		team1.players.add(new IA(gc, colorMap[0], 7*(width/10), height-100, null,vieBaseBot,team1,4 * (width / 5) - 40,3 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
+		team1.players.add(new IA(gc, colorMap[0], 9*(width/10), height-100, null,vieBaseBot,team1,5 * (width / 5) - 40,4 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
 
 		team2.players.add(new Player(gc, colorMap[1], width/2, 20, myBall,vieBasePlayer,team2));
-		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2,width/5 - 40,-10));
-		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2,2 * (width / 5) - 40,(width / 5) - 10));
-		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2,4 * (width / 5) - 40,3 * (width / 5) - 10));
-		team2.players.add(new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2,5 * (width / 5) - 40,4 * (width / 5) - 10));
+		team2.players.add(new IA(gc, colorMap[1], 1*(width/10), 20, null,vieBaseBot,team2,width/5 - 40,-10,new RandomDeplacementStrategy(10)));
+		team2.players.add(new IA(gc, colorMap[1], 3*(width/10), 20, null,vieBaseBot,team2,2 * (width / 5) - 40,(width / 5) - 10,new RandomDeplacementStrategy(10)));
+		team2.players.add(new IA(gc, colorMap[1], 7*(width/10), 20, null,vieBaseBot,team2,4 * (width / 5) - 40,3 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
+		team2.players.add(new IA(gc, colorMap[1], 9*(width/10), 20, null,vieBaseBot,team2,5 * (width / 5) - 40,4 * (width / 5) - 10,new RandomDeplacementStrategy(10)));
 	}
 
 
 	public void affichage(Display afficheur,Ball myBall){
-
 		afficheur.displayImg(gc ,myBall.getImgBall(), myBall.x, myBall.y);
 		afficheur.displayPlayer(gc,team1.players,team2.players,0,0);
 		afficheur.displayVie();
-		//afficheur.displayImg(gc,bGround,0,0);
-		}
+	}
 
 
-	public void gestionTouche(int boutton){
+	public void gestionTouche(){
+
 		/*
 		 * Event Listener du clavier
 		 * quand une touche est pressée on la rajoute à la liste d'input
 		 *
 		 */
-		this.setOnKeyPressed(e -> {
+		this.setOnKeyPressed(
+				e -> {
 					String code = e.getCode().toString();
 					// only add once... prevent duplicates
 					if ( !input.contains(code) )
 						input.add( code );
-				});
+
+				     }
+		);
 
 
 		/*
@@ -244,27 +213,16 @@ public class Field extends Canvas {
 					input.remove( code );
 				});
 
+
+
 		if (input.contains("LEFT"))
 		{
-			if (boutton==2) {
-				if (team1.players.get(0).getX() >= 2*(width/5)){
-					team1.players.get(0).moveLeft();
-				}
-			}
-			else {
-				team1.players.get(0).moveLeft();
-			}
+
+			team1.players.get(0).moveLeft();
 		}
 		if (input.contains("RIGHT"))
 		{
-			if (boutton==2) {
-				if (team1.players.get(0).getX() <= 3*(width/5)-50){
-					team1.players.get(0).moveRight();
-				}
-			}
-			else {
-				team1.players.get(0).moveRight();
-			}
+			team1.players.get(0).moveRight();
 		}
 		if ( input.contains("UP"))
 		{
@@ -282,25 +240,11 @@ public class Field extends Canvas {
 
 		if (input.contains("Q"))
 		{
-			if (boutton==2) {
-				if (team2.players.get(0).getX() >= 2*(width/5)){
-					team2.players.get(0).moveLeft();
-				}
-			}
-			else {
-				team2.players.get(0).moveLeft();
-			}
+			team2.players.get(0).moveLeft();
 		}
 		if (input.contains("D"))
 		{
-			if (boutton==2) {
-				if (team2.players.get(0).getX() <= 3*(width/5)-50){
-					team2.players.get(0).moveRight();
-				}
-			}
-			else{
 			team2.players.get(0).moveRight();
-		}
 		}
 		if (input.contains("Z"))
 		{
@@ -315,6 +259,42 @@ public class Field extends Canvas {
 		{
 			team2.players.get(0).shoot();
 		}
+
+		afficheur.buttons.get(0).setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				afficheur.buttons.get(0).setDisable(true);
+				afficheur.buttons.get(1).setDisable(true);
+				for (int i = 1; i < Team.MAXPLAYERS; i++) {
+					System.out.println("test bouton 1");
+					if (team1.players.get(i)!=null) {
+						 team1.players.get(i).deplacementStrategy = new RandomDeplacementStrategy(10);
+					}
+					if(team2.players.get(i)!=null){
+						team2.players.get(i).deplacementStrategy = new RandomDeplacementStrategy(10);
+					}
+				}
+			}
+
+		});
+
+		afficheur.buttons.get(1).setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				afficheur.buttons.get(0).setDisable(true);
+				afficheur.buttons.get(1).setDisable(true);
+				for (int i = 1; i < Team.MAXPLAYERS; i++) {
+					if (team1.players.get(i)!=null) {
+						team1.players.get(i).deplacementStrategy = new BabyFootDeplacementStrategy();
+					}
+					if(team2.players.get(i)!=null){
+						team2.players.get(i).deplacementStrategy = new BabyFootDeplacementStrategy();
+					}
+				}
+			}
+		});
 	}
+
+
 
 }

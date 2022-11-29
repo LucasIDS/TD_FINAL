@@ -2,6 +2,7 @@ package fr.icom.info.m1.balleauprisonnier_mvn;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
@@ -41,7 +42,9 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2).get(3).sprite);
 		root.getChildren().add(gameField.getJoueurs(1).get(4).sprite);
 		root.getChildren().add(gameField.getJoueurs(2).get(4).sprite);
-		root.getChildren().add(gameField.getBouton());
+		for (Button button:gameField.getBoutons()){
+			root.getChildren().add(button);
+		}
 		for (LabelGestion Label:gameField.getLabels()){
 			root.getChildren().add(Label);
 		}

@@ -19,6 +19,7 @@ public class Player
 	protected double xInit;
 	double vitesse;
 	double feinteMax;
+	protected DeplacementStrategy deplacementStrategy;
 	String playerColor;
 
 	// On une image globale du joueur
@@ -206,11 +207,21 @@ public class Player
 		sprite.setY(y);
 	}
 
-	void deplacement(int feinte){}
+	void deplacement(){}
 	void suivit(){
 	}
 	void setAngle(double angle){
 		this.angle=angle;
+	}
+
+
+	void afficheStrategy(){
+		if(this.deplacementStrategy instanceof RandomDeplacementStrategy){
+			System.out.println("random Startegy");
+		}
+		if(this.deplacementStrategy instanceof BabyFootDeplacementStrategy){
+			System.out.println("random babyfoot");
+		}
 	}
 }
 

@@ -1,7 +1,11 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 
 public class BabyFootDeplacementStrategy implements DeplacementStrategy{
-    public void deplacementBot(){
-        System.out.println("test");
+    public void deplacementBot(IA bot){
+        double difference = bot.team.players.get(0).xInit - bot.xInit;
+        if (bot.vie!=0) {
+            bot.x = bot.team.players.get(0).x - difference;
+            bot.spriteAnimate();
+        }
     }
 }
