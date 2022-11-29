@@ -76,8 +76,6 @@ public class Field extends Canvas {
 		{
 			public void handle(long currentNanoTime)
 			{
-
-
 				// On nettoie le canvas à chaque frame
 				gc.setFill( Color.LIGHTGRAY);
 				gc.fillRect(0, 0, width, height);
