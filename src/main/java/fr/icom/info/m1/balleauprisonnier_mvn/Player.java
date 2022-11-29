@@ -71,7 +71,7 @@ public class Player
 
 		//Image du joueur
 		Image tilesheetImage = new Image("assets/orc.png");
-		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName());
+		sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), this.team.getName(),this.vie);
 		sprite.setX(x);
 		sprite.setY(y);
 
@@ -102,6 +102,8 @@ public class Player
 		if (x > 5)
 		{
 			spriteAnimate();
+
+
 			x -= step;
 			if (this.myBall != null){
 				this.myBall.x -= step;
@@ -192,11 +194,11 @@ public class Player
 	/**
 	 *  Deplacement en mode boost
 	 */
-	void boost()
-	{
-		x += step*2;
-		spriteAnimate();
-	}
+	//void boost()
+	//{
+	//	x += step*2;
+	//	spriteAnimate();
+	//}
 
 	void spriteAnimate(){
 		if(!sprite.isRunning) {sprite.playContinuously();}

@@ -8,6 +8,8 @@ import javafx.util.Duration;
 
 class Sprite extends ImageView {
     private final Rectangle2D[] walkClips;
+
+    private final Rectangle2D[] deathClips;
     private final Rectangle2D[] shootClips;
     private int numCells;
     private int numCellsWalk;
@@ -15,22 +17,27 @@ class Sprite extends ImageView {
     private final Timeline walkTimeline;
     private final IntegerProperty frameCounter = new SimpleIntegerProperty(0);
     private final Timeline shootTimeline;
+
+    private final Timeline deathTimeline;
     private Timeline timeline;
     public boolean isRunning;
 
-    public Sprite(Image animationImage, int numCells, int numRows, Duration frameTime, String side) {
+    public double vie;
+    public String side;
+    public Sprite(Image animationImage, int numCells, int numRows, Duration frameTime, String side, double vie) {
         this.numCells = numCells;
-
+        this.vie = vie;
         double cellWidth  = 64;//animationImage.getWidth() / numCells; //64x64
         double cellHeight = 64;//animationImage.getHeight() / numRows;
-
+        this.side = side;
 
         numCellsWalk = 9;
 
         int lineNumber = 8;
         if(side == "top"){
-            lineNumber += 2;
+            lineNumber +=2;
         }
+
 
         walkClips = new Rectangle2D[numCellsWalk];
         for (int i = 0; i < numCellsWalk; i++) {
@@ -39,7 +46,6 @@ class Sprite extends ImageView {
                     cellWidth, cellHeight
             );
         }
-
         setImage(animationImage);
         setViewport(walkClips[0]);
 
@@ -49,6 +55,21 @@ class Sprite extends ImageView {
                     setViewport(walkClips[frameCounter.get()]);
                 })
         );
+
+        deathClips = new Rectangle2D[6];
+        for (int i = 0; i < 6; i++){
+            deathClips[i] = new Rectangle2D(
+                    i * cellWidth, cellHeight*21,
+                    cellWidth, cellHeight
+            );
+        }
+
+        deathTimeline = new Timeline(
+                new KeyFrame(frameTime, event -> {
+                    frameCounter.set((frameCounter.get() + 1) % 6);
+                    setViewport(deathClips[frameCounter.get()]);
+                }));
+
 
         numCellsShoot = 13;
         lineNumber += 8;
@@ -67,6 +88,8 @@ class Sprite extends ImageView {
                     setViewport(shootClips[frameCounter.get()]);
                 }));
 
+
+
         timeline = walkTimeline;
         isRunning = false;
     }
@@ -75,6 +98,14 @@ class Sprite extends ImageView {
         isRunning = true;
         frameCounter.set(0);
         timeline = walkTimeline;
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.stop();
+        timeline.playFromStart();
+    }
+    public void playDeath() {
+        isRunning = true;
+        frameCounter.set(0);
+        timeline = deathTimeline;
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.stop();
         timeline.playFromStart();
