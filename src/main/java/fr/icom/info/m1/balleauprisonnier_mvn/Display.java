@@ -19,7 +19,6 @@ public class Display{
     }
 
 
-
     public static synchronized Display getInstance(){
         if(afficheur == null){
             afficheur = new Display();
