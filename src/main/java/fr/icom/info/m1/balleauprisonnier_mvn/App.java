@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
  */
 public class App extends Application
 {
+
+	static Stage aStrage;
 	/**
 	 * En javafx start() lance l'application
 	 * On cree le SceneGraph de l'application ici
@@ -25,12 +28,15 @@ public class App extends Application
 	 */
 	@Override
 	public void start(Stage stage) {
+
+
 		// Nom de la fenêtre
 		stage.setTitle("BalleAuPrisonnier");
 		Group root = new Group();
 		Scene scene = new Scene( root );
+		aStrage = stage;
 		// On crée le terrain de jeu et on l'ajoute à la racine de la scene
-		Field gameField = new Field( 600, 600 );
+		Field gameField = new Field( 600, 600,this);
 		root.getChildren().add( gameField );
 		root.getChildren().add(gameField.getJoueurs(1).get(0).sprite);
 		root.getChildren().add(gameField.getJoueurs(2).get(0).sprite);
@@ -42,9 +48,10 @@ public class App extends Application
 		root.getChildren().add(gameField.getJoueurs(2).get(3).sprite);
 		root.getChildren().add(gameField.getJoueurs(1).get(4).sprite);
 		root.getChildren().add(gameField.getJoueurs(2).get(4).sprite);
+		/*
 		for (Button button:gameField.getBoutons()){
 			root.getChildren().add(button);
-		}
+		}*/
 		for (LabelGestion Label:gameField.getLabels()){
 			root.getChildren().add(Label);
 		}
@@ -52,6 +59,14 @@ public class App extends Application
 		stage.setScene( scene );
 		stage.show();
 	}
+
+	public static void stopApp(){
+		aStrage.hide();
+		aStrage.close();
+	}
+
+
+
 
 	public static void main(String[] args)
 	{

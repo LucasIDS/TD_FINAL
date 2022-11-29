@@ -37,11 +37,12 @@ public class Field extends Canvas {
 	 * @param w largeur du canvas
 	 * @param h hauteur du canvas
 	 */
-	public Field( double w, double h)
+	public Field( double w, double h, App application)
 	{
 		super(w, h);
 		width = w;
 		height = h;
+
 
 		/* Permet de capturer le focus et donc les événements clavier et souris */
 		this.setFocusTraversable(true);
@@ -76,6 +77,7 @@ public class Field extends Canvas {
 			public void handle(long currentNanoTime)
 			{
 
+
 				// On nettoie le canvas à chaque frame
 				gc.setFill( Color.LIGHTGRAY);
 				gc.fillRect(0, 0, width, height);
@@ -91,6 +93,18 @@ public class Field extends Canvas {
 				myBall.deplacementBall();
 
 				gestionCollision(myBall);
+
+				if(team1.players.get(0).vie <= 0 || team2.players.get(0).vie <= 0){
+					this.stop();
+					System.out.println("l'équipe 2 à gagné (Vive les bleu ! )");
+					App.stopApp();
+				}
+				if(team2.players.get(0).vie <= 0){
+					this.stop();
+					System.out.println("l'équipe 1 à gagné (Les rouge ne perdent jamais ! )");
+					App.stopApp();
+				}
+
 
 			}
 		}.start(); // On lance la boucle de rafraichissement
@@ -294,6 +308,9 @@ public class Field extends Canvas {
 			}
 		});
 	}
+
+
+
 
 
 

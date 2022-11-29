@@ -48,7 +48,6 @@ public class AttackState implements State{
                 }
                 player.myBall = null;
                 wait = 0;
-
             }
         }
         // Partie joueur

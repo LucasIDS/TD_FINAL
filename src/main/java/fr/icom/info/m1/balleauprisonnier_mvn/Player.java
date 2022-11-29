@@ -76,11 +76,6 @@ public class Player
 		sprite.setX(x);
 		sprite.setY(y);
 
-		//directionArrow = sprite.getClip().;
-
-		// Tous les joueurs ont une vitesse aléatoire entre 0.0 et 1.0
-		// Random randomGenerator = new Random();
-		//step = randomGenerator.nextFloat();
 		this.vitesse = 1;
 		this.step = 3;
 		myBall = ball;
@@ -103,8 +98,6 @@ public class Player
 		if (x > 5)
 		{
 			spriteAnimate();
-
-
 			x -= step;
 			if (this.myBall != null){
 				this.myBall.x -= step;
@@ -192,14 +185,6 @@ public class Player
 			}
 		}
 	}
-	/**
-	 *  Deplacement en mode boost
-	 */
-	//void boost()
-	//{
-	//	x += step*2;
-	//	spriteAnimate();
-	//}
 
 	void spriteAnimate(){
 		if(!sprite.isRunning) {sprite.playContinuously();}
@@ -208,20 +193,10 @@ public class Player
 	}
 
 	void deplacement(){}
-	void suivit(){
-	}
+
 	void setAngle(double angle){
 		this.angle=angle;
 	}
 
-
-	void afficheStrategy(){
-		if(this.deplacementStrategy instanceof RandomDeplacementStrategy){
-			System.out.println("random Startegy");
-		}
-		if(this.deplacementStrategy instanceof BabyFootDeplacementStrategy){
-			System.out.println("random babyfoot");
-		}
-	}
 }
 
